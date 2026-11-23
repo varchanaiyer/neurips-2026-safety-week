@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Unofficial guide to AI safety workshops, talks, socials and side events at NeurIPS 2026 in Sydney, Atlanta and Paris.">
+<meta property="og:title" content="NeurIPS 2026 Safety Week">
+<meta property="og:description" content="AI safety events at NeurIPS 2026 across Sydney, Atlanta and Paris.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>NeurIPS 2026 Safety Week</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: per-city field guide. A coloured city band with an illustrated skyline, then agenda, orgs, transit, food, sights, tips */
+:root{
+  --bg:#F1F2F4; --surface:#FFFFFF; --ink:#16181D; --muted:#5D6270; --line:#DADDE3; --soft:#E7E9ED;
+  --syd:#1C5DB0; --syd-2:#F2B544; --syd-hero:#0E2B55;
+  --atl:#C2501E; --atl-2:#F3A26F; --atl-hero:#1E3A2D;
+  --par:#8E2E66; --par-2:#E7B9D2; --par-hero:#2B1530;
+  --hero-ink:#F7F5F1;
+  --warn:#8F5E00; --warn-bg:#FCEFD2; --bad:#A3302F; --bad-bg:#F9E1E0; --ok:#1C7442; --ok-bg:#DDF1E4;
+  --accent:var(--syd); --accent2:var(--syd-2); --hero:var(--syd-hero);
+  --display:"Syne", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F1115; --surface:#171A20; --ink:#E9EBF0; --muted:#9BA1AE; --line:#2A2F39; --soft:#1F232B;
+  --syd:#71A9F2; --syd-2:#F2B544; --syd-hero:#0B2247;
+  --atl:#F08B5B; --atl-2:#F3A26F; --atl-hero:#15291F;
+  --par:#E27DB6; --par-2:#E7B9D2; --par-hero:#211025;
+  --warn:#F0BE62; --warn-bg:#382A10; --bad:#F28E8C; --bad-bg:#3A1C1D; --ok:#73D49D; --ok-bg:#15301F;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1115; --surface:#171A20; --ink:#E9EBF0; --muted:#9BA1AE; --line:#2A2F39; --soft:#1F232B;
+  --syd:#71A9F2; --syd-2:#F2B544; --syd-hero:#0B2247;
+  --atl:#F08B5B; --atl-2:#F3A26F; --atl-hero:#15291F;
+  --par:#E27DB6; --par-2:#E7B9D2; --par-hero:#211025;
+  --warn:#F0BE62; --warn-bg:#382A10; --bad:#F28E8C; --bad-bg:#3A1C1D; --ok:#73D49D; --ok-bg:#15301F;
+  color-scheme:dark}
+body[data-city="sydney"]{--accent:var(--syd);--accent2:var(--syd-2);--hero:var(--syd-hero)}
+body[data-city="atlanta"]{--accent:var(--atl);--accent2:var(--atl-2);--hero:var(--atl-hero)}
+body[data-city="paris"]{--accent:var(--par);--accent2:var(--par-2);--hero:var(--par-hero)}
+
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+
+/* top bar */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--surface)}
+.top{position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-block:10px;flex-wrap:wrap}
+.brand{font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:.02em;text-transform:uppercase}
+.brand span{color:var(--accent)}
+.cities{display:flex;gap:4px}
+.cities a{text-decoration:none;color:var(--muted);font-weight:600;font-size:13.5px;padding:6px 12px;border-radius:6px;border:1px solid transparent}
+.cities a[aria-current="page"]{color:var(--accent);border-color:var(--accent)}
+.secnav{display:flex;gap:6px;overflow-x:auto;padding-block:0 10px;scrollbar-width:none}
+.secnav button{flex:none;border:0;background:var(--soft);color:var(--ink);font:500 13px var(--body);padding:5px 11px;border-radius:4px;cursor:pointer}
+.secnav button:hover{background:var(--accent);color:var(--surface)}
+
+/* hero band */
+.hero{background:var(--hero);color:var(--hero-ink);position:relative;overflow:hidden}
+.hero .wrap{position:relative;padding-block:44px 0;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px;align-items:end}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent2)}
+.hero h1{font-size:clamp(42px,7.5vw,84px);line-height:.92;font-weight:800;letter-spacing:-.03em;margin-top:12px}
+.hero h1 em{font-style:normal;color:var(--accent2);display:block}
+.hero p.lede{max-width:56ch;opacity:.86;font-size:16.5px;margin:16px 0 0}
+.skyline{width:100%;max-width:100%;height:auto;display:block;color:var(--accent2)}
+.stats{grid-column:1 / -1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid rgb(255 255 255 / .18);margin-top:4px}
+.stat{padding:14px 14px 18px 0;min-width:0}
+.stat + .stat{padding-left:14px;border-left:1px solid rgb(255 255 255 / .18)}
+.stat b{display:block;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
+.stat span{display:block;font-family:var(--display);font-weight:700;font-size:19px;margin-top:2px;font-variant-numeric:tabular-nums}
+@media (max-width:760px){
+  .hero .wrap{grid-template-columns:minmax(0,1fr)}
+  .skyline{max-width:420px}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stat:nth-child(3){padding-left:0;border-left:0}
+  .stat:nth-child(n+3){border-top:1px solid rgb(255 255 255 / .18)}
+}
+
+/* sections */
+section.block{padding-block:40px 6px;scroll-margin-top:110px}
+.sechead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+.sechead h2{font-size:30px;font-weight:700;letter-spacing:-.015em}
+.sechead .count{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.intro{color:var(--muted);max-width:70ch;margin:4px 0 16px}
+
+/* controls */
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0 4px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:500 13.5px var(--body);padding:6px 12px;border-radius:4px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.search{flex:1 1 200px;min-width:0;max-width:300px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:400 14px var(--body);padding:7px 12px;border-radius:4px}
+.toggle{display:flex;align-items:center;gap:6px;font-size:13.5px;color:var(--muted);cursor:pointer}
+.myweek{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px;font-size:13.5px;color:var(--muted)}
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:500 13px var(--body);padding:5px 11px;border-radius:4px;cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+#copyFallback{width:100%;min-height:120px;font:12.5px var(--mono);border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);padding:10px}
+
+/* agenda */
+.day{margin-top:28px}
+.dayhead{display:flex;align-items:baseline;gap:12px;padding-bottom:8px;border-bottom:3px solid var(--accent)}
+.dayhead h3{font-size:19px;font-weight:700}
+.dayhead .dnum{font-family:var(--display);font-weight:800;font-size:36px;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
+.dayhead .phase{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--muted);text-align:right}
+.ev{display:grid;grid-template-columns:116px minmax(0,1fr) auto;gap:6px 16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.ev .time{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums;padding-top:2px}
+.ev .time small{display:block;color:var(--muted);font-size:11px}
+.ev h4{margin:0;font-family:var(--body);font-weight:600;font-size:16px;line-height:1.35}
+.ev h4 a{color:var(--ink);text-decoration:none}
+.ev h4 a:hover{color:var(--accent);text-decoration:underline}
+.meta{color:var(--muted);font-size:13.5px;margin-top:3px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tag{font:500 11px var(--mono);letter-spacing:.04em;padding:2px 7px;border-radius:3px;background:var(--soft);color:var(--muted);text-transform:uppercase}
+.tag.kind{color:var(--accent);background:color-mix(in srgb, var(--accent) 13%, transparent)}
+.tag.side{color:var(--ink);background:transparent;border:1px solid var(--ink)}
+.tag.warn{background:var(--warn-bg);color:var(--warn)}
+.tag.bad{background:var(--bad-bg);color:var(--bad)}
+.tag.ok{background:var(--ok-bg);color:var(--ok)}
+.note{font-size:12.5px;color:var(--warn);margin-top:6px}
+.acts{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.star{border:1px solid var(--line);background:var(--surface);color:var(--muted);width:34px;height:34px;border-radius:4px;cursor:pointer;font-size:17px;line-height:1}
+.star[aria-pressed="true"]{color:var(--accent);border-color:var(--accent)}
+.cal{font-size:12.5px;white-space:nowrap}
+.ev.adjacent h4{font-weight:500}
+.empty{padding:28px 0;color:var(--muted)}
+@media (max-width:600px){
+  .ev{grid-template-columns:minmax(0,1fr) auto}
+  .ev .time{grid-column:1 / -1}
+  .acts{grid-row:2;grid-column:2}
+}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px;min-width:0}
+.card h4{margin:0;font-size:15.5px;font-weight:600}
+.card .sub{font-family:var(--mono);font-size:12px;color:var(--accent);margin-top:2px}
+.card p{margin:8px 0 0;font-size:13.5px}
+.card .otype{font-size:12.5px;color:var(--muted)}
+.missing{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.missing span{font-size:13px;padding:3px 10px;border:1px dashed var(--line);border-radius:4px;color:var(--muted)}
+
+/* transit */
+.route{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px;margin-top:14px;overflow-x:auto}
+.route h3{font-size:17px;font-weight:700}
+.route svg{display:block;min-width:560px;width:100%;height:auto;margin-top:8px}
+.route .lbl{fill:var(--ink);font:600 12.5px var(--body)}
+.route .seg{fill:var(--muted);font:500 11px var(--mono)}
+.paybox{margin-top:12px;font-size:14px;color:var(--muted);max-width:75ch}
+.price{font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+/* submit */
+.secnav .go-submit{background:var(--accent);color:var(--surface)}
+.subform{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 14px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px}
+.subform label{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:600;min-width:0}
+.subform input,.subform select,.subform textarea{font:400 14px var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:8px 10px;min-width:0;width:100%;box-sizing:border-box}
+.subform .wide{grid-column:1 / -1}
+.subform [aria-invalid="true"]{border-color:var(--bad)}
+.subacts{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+#subReady{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+#subReady[hidden]{display:none}
+#subText{width:100%;min-height:140px;font:12.5px var(--mono)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--surface);text-decoration:none;font-weight:600;padding:8px 14px}
+#subMsg{font-size:13.5px;color:var(--muted)}
+@media (max-width:700px){.subform{grid-template-columns:minmax(0,1fr)}}
+.route-list{display:none;list-style:none;margin:10px 0 0;padding:0}
+.route-list li{position:relative;padding:0 0 16px 28px}
+.route-list li::before{content:"";position:absolute;left:5px;top:4px;width:12px;height:12px;border-radius:50%;border:3px solid var(--accent);background:var(--surface);box-sizing:border-box}
+.route-list li:last-child::before{background:var(--accent)}
+.route-list li:not(:last-child)::after{content:"";position:absolute;left:10px;top:18px;bottom:0;width:3px;background:var(--accent)}
+.route-list b{display:block;font-size:14.5px}
+.route-list span{font:500 12px var(--mono);color:var(--muted)}
+
+/* phone */
+@media (max-width:600px){
+  body{font-size:15.5px}
+  .top .wrap{padding-block:8px}
+  .brand{font-size:13px}
+  .cities a{padding:6px 9px;font-size:13px}
+  .secnav{padding-block:0 8px;margin-right:calc(-1 * max(16px, env(safe-area-inset-right, 0px)))}
+  .secnav button{padding:7px 11px}
+  section.block{padding-block:30px 4px;scroll-margin-top:100px}
+  .sechead h2{font-size:24px}
+  .hero .wrap{padding-block:28px 0;gap:10px}
+  .hero h1{font-size:44px}
+  .hero p.lede{font-size:15px}
+  .skyline{max-width:260px;margin-left:auto}
+  .stat span{font-size:16px}
+  .controls .chip,.controls .toggle{flex:none}
+  .search{order:-1;flex:none;width:100%;max-width:none}
+  .controls{flex-wrap:wrap}
+  .controls .chip{padding:8px 12px}
+  .dayhead .dnum{font-size:30px}
+  .dayhead h3{font-size:17px}
+  .ev{grid-template-columns:minmax(0,1fr) auto;padding:14px 0}
+  .ev .time{grid-column:1 / -1;display:flex;gap:8px;align-items:baseline}
+  .ev .time small{display:inline}
+  .ev h4{font-size:15.5px}
+  .acts{grid-row:2;grid-column:2;gap:8px}
+  .star{width:44px;height:44px;font-size:19px}
+  .cal{font-size:12px;padding:4px 0}
+  .route svg{display:none}
+  .route-list{display:block}
+  .grid{grid-template-columns:minmax(0,1fr)}
+  .subform{padding:14px}
+  .subform input,.subform select,.subform textarea,.search{font-size:16px}
+  .btn{padding:9px 13px;font-size:14px}
+  .myweek{gap:10px}
+}
+
+/* tips */
+.tips{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.tip{background:var(--surface);padding:14px 16px;min-width:0}
+.tip b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:4px;font-weight:500}
+.tip p{margin:0;font-size:13.5px}
+footer{margin-top:48px;padding-block:24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+footer p{margin:4px 0;max-width:80ch}
+@media (prefers-reduced-motion: no-preference){.chip,.star,.btn,.secnav button{transition:background .15s,border-color .15s,color .15s}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">NeurIPS 2026 <span>Safety Week</span></div>
+    <nav class="cities" aria-label="City">
+      <a href="#sydney" data-c="sydney">Sydney</a>
+      <a href="#atlanta" data-c="atlanta">Atlanta</a>
+      <a href="#paris" data-c="paris">Paris</a>
+    </nav>
+  </div>
+  <div class="wrap">
+    <nav class="secnav" aria-label="Sections">
+      <button data-go="events" id="navEvents">Safety events</button>
+      <button data-go="orgs">Who's there</button>
+      <button data-go="around">Getting around</button>
+      <button data-go="tips">Tips</button>
+      <button data-go="submit" class="go-submit">+ Submit an event</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow" id="eyebrow"></div>
+        <h1>NeurIPS <em id="cityName">Sydney</em></h1>
+        <p class="lede" id="lede"></p>
+      </div>
+      <div id="skyline" aria-hidden="true"></div>
+      <div class="stats">
+        <div class="stat"><b>Dates</b><span id="sDates">—</span></div>
+        <div class="stat"><b>Venue</b><span id="sVenue">—</span></div>
+        <div class="stat"><b>Kick-off</b><span id="sCount">—</span></div>
+        <div class="stat"><b id="sNowLabel">Local time</b><span id="sNow">—</span></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="block" id="events">
+    <div class="wrap">
+      <div class="sechead"><h2>Safety events</h2><span class="count" id="evCount"></span></div>
+      <p class="intro" id="tzNote"></p>
+      <div class="controls" role="group" aria-label="Filter events">
+        <button class="chip" data-f="all" aria-pressed="true">All</button>
+        <button class="chip" data-f="workshop" aria-pressed="false">Workshops</button>
+        <button class="chip" data-f="talk" aria-pressed="false">Talks &amp; tutorials</button>
+        <button class="chip" data-f="social" aria-pressed="false">Official socials</button>
+        <button class="chip" data-f="side" aria-pressed="false">Side events</button>
+        <button class="chip" data-f="starred" aria-pressed="false">★ Starred</button>
+        <input class="search" id="q" type="search" placeholder="Search title, host, room" aria-label="Search events">
+        <label class="toggle"><input type="checkbox" id="core"> Core safety only</label>
+      </div>
+      <div class="myweek">
+        <span id="starCount">Star events to build your week.</span>
+        <button class="btn" id="copyBtn" type="button">Copy my schedule</button>
+        <span id="copyMsg" role="status"></span>
+        <button class="btn" type="button" data-go="submit">+ Submit a safety event</button>
+      </div>
+      <textarea id="copyFallback" hidden readonly aria-label="Your schedule as text"></textarea>
+      <div id="agenda"></div>
+    </div>
+  </section>
+
+  <section class="block" id="orgs">
+    <div class="wrap">
+      <div class="sechead"><h2>Who's there</h2><span class="count" id="orgCount"></span></div>
+      <p class="intro">Organizations confirmed from the official program and event pages. The NeurIPS sponsor and exhibitor list could not be read, so booth presence is not covered.</p>
+      <div class="grid" id="orgList"></div>
+      <h3 style="font-size:18px;margin-top:28px">Nothing announced yet</h3>
+      <p class="intro" style="margin-bottom:0">No NeurIPS 2026 activity found as of 24 Nov for these groups, many of which hosted events in 2025. Lab dinners and socials usually surface in the final one to two weeks.</p>
+      <div class="missing" id="missing"></div>
+    </div>
+  </section>
+
+  <section class="block" id="around">
+    <div class="wrap">
+      <div class="sechead"><h2>Getting around</h2></div>
+      <p class="intro" id="aroundIntro"></p>
+      <div class="grid" id="aroundList"></div>
+      <div class="route">
+        <h3>From the airport</h3>
+        <div id="routeMap"></div>
+      </div>
+      <p class="paybox" id="payNote"></p>
+    </div>
+  </section>
+
+
+  <section class="block" id="submit">
+    <div class="wrap">
+      <div class="sechead"><h2>Submit a safety event</h2></div>
+      <p class="intro">Hosting or know of an AI safety event during NeurIPS week in any city? Send it in. Submissions open as a GitHub issue on this guide's repository and are reviewed before they're added.</p>
+      <form id="subForm" class="subform" novalidate>
+        <label>Event name *<input id="fTitle" required maxlength="160" placeholder="AI Safety Breakfast"></label>
+        <label>City *<select id="fCity"><option value="sydney">Sydney</option><option value="atlanta">Atlanta</option><option value="paris">Paris</option></select></label>
+        <label>Type<select id="fKind"><option value="Side event">Side event</option><option value="Workshop">Workshop</option><option value="Official social">Official social</option><option value="Talk or tutorial">Talk or tutorial</option><option value="Other">Other</option></select></label>
+        <label>Date *<input id="fDate" type="date" required min="2026-12-01" max="2026-12-20"></label>
+        <label>Start time (local)<input id="fStart" type="time"></label>
+        <label>End time (local)<input id="fEnd" type="time"></label>
+        <label>Host / organizer *<input id="fHost" required maxlength="160" placeholder="Organization or people"></label>
+        <label>Venue<input id="fVenue" maxlength="160" placeholder="Address or room"></label>
+        <label class="wide">Event link *<input id="fUrl" type="url" required placeholder="https://luma.com/…"></label>
+        <label>Registration<select id="fReg"><option>Open</option><option>Approval required</option><option>Invite only</option><option>Full / waitlist</option><option>Unknown</option></select></label>
+        <label class="wide">Notes<textarea id="fNotes" rows="3" maxlength="800" placeholder="What it's about, who it's for"></textarea></label>
+        <div class="wide subacts">
+          <button class="btn primary" type="submit">Prepare submission</button>
+          <span id="subMsg" role="status"></span>
+        </div>
+        <div class="wide" id="subReady" hidden>
+          <a class="btn primary" id="subLink" href="#" target="_blank" rel="noopener">Open on GitHub to submit ↗</a>
+          <button class="btn" id="subCopy" type="button">Copy details instead</button>
+          <p class="intro" style="margin:8px 0 0">Needs a free GitHub account. No account? Copy the details and send them to the guide's maintainer.</p>
+          <textarea id="subText" hidden readonly aria-label="Submission details"></textarea>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="block" id="tips">
+    <div class="wrap">
+      <div class="sechead"><h2>Useful to know</h2></div>
+      <div class="tips" id="tipList"></div>
+      <p class="intro" style="margin-top:14px">Sources:
+        <a href="https://neurips.cc/" target="_blank" rel="noopener">neurips.cc</a> ·
+        <a href="https://kittyinai.substack.com/p/neurips-2026-social-and-event-tracking" target="_blank" rel="noopener">community side-event tracker</a> ·
+        <a href="https://aisafetyeventsandtraining.substack.com/p/week-39-2026" target="_blank" rel="noopener">AISafety.com events newsletter</a> ·
+        <a href="https://neurips-europe.cc" target="_blank" rel="noopener">NeurIPS Europe</a>.
+        Transit and food notes are general guidance; check local operators before you travel.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <p>An unofficial community guide to AI safety events, not affiliated with or endorsed by the NeurIPS Foundation or any listed organization.</p>
+      <p>Last updated 24 November 2026. Stars are saved in this browser only.</p>
+    </div>
+  </footer>
+</main>
+
+<script>
+const SKY = {
+ sydney:`<svg class="skyline" viewBox="0 0 420 210" fill="none">
+   <path d="M0 150 Q115 28 230 150" stroke="currentColor" stroke-width="7"/>
+   <path d="M0 150 Q115 52 230 150" stroke="currentColor" stroke-width="2" opacity=".6"/>
+   <line x1="0" y1="122" x2="250" y2="122" stroke="currentColor" stroke-width="5"/>
+   ${[30,55,80,105,130,155,180,205].map(x=>`<line x1="${x}" y1="122" x2="${x}" y2="${Math.round(150-122*Math.sin(Math.PI*x/230)*0.82)}" stroke="currentColor" stroke-width="1.4" opacity=".7"/>`).join("")}
+   <rect x="-4" y="104" width="16" height="46" fill="currentColor" opacity=".85"/><rect x="222" y="104" width="16" height="46" fill="currentColor" opacity=".85"/>
+   <path d="M262 150 Q270 104 302 88 Q292 122 298 150Z" fill="currentColor"/>
+   <path d="M292 150 Q304 92 344 72 Q330 118 336 150Z" fill="currentColor" opacity=".9"/>
+   <path d="M330 150 Q344 98 386 86 Q370 124 374 150Z" fill="currentColor" opacity=".8"/>
+   <path d="M368 150 Q378 118 404 110 Q396 132 400 150Z" fill="currentColor" opacity=".7"/>
+   <rect x="250" y="150" width="160" height="8" fill="currentColor" opacity=".55"/>
+   <g stroke="currentColor" stroke-width="2" opacity=".35"><line x1="0" y1="172" x2="420" y2="172"/><line x1="30" y1="186" x2="390" y2="186"/><line x1="80" y1="200" x2="340" y2="200"/></g>
+ </svg>`,
+ atlanta:`<svg class="skyline" viewBox="0 0 420 210" fill="none">
+   <rect x="40" y="96" width="34" height="80" fill="currentColor" opacity=".55"/>
+   <rect x="80" y="70" width="40" height="106" fill="currentColor" opacity=".75"/>
+   <path d="M132 176 V60 L150 40 L168 60 V176Z" fill="currentColor"/>
+   <rect x="146" y="10" width="8" height="32" fill="currentColor"/>
+   <rect x="176" y="84" width="30" height="92" fill="currentColor" opacity=".6"/>
+   <path d="M214 176 V74 Q230 56 246 74 V176Z" fill="currentColor" opacity=".85"/>
+   <rect x="256" y="104" width="44" height="72" fill="currentColor" opacity=".55"/>
+   <path d="M308 176 V88 L322 78 L336 88 V176Z" fill="currentColor" opacity=".7"/>
+   <circle cx="372" cy="128" r="30" stroke="currentColor" stroke-width="3" opacity=".8"/>
+   <line x1="372" y1="158" x2="372" y2="176" stroke="currentColor" stroke-width="3" opacity=".8"/>
+   ${[[10,170,22],[44,182,20],[86,184,24],[132,186,20],[176,182,22],[222,186,24],[266,184,20],[310,186,24],[350,184,22],[398,178,24]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="currentColor" opacity=".38"/>`).join("")}
+   <rect x="0" y="196" width="420" height="14" fill="currentColor" opacity=".38"/>
+ </svg>`,
+ paris:`<svg class="skyline" viewBox="0 0 420 210" fill="none">
+   <path d="M262 186 L290 112 L300 64 L306 20 L310 64 L320 112 L348 186 Q305 140 262 186Z" fill="currentColor"/>
+   <rect x="284" y="110" width="42" height="5" fill="currentColor"/><rect x="295" y="62" width="20" height="4" fill="currentColor"/>
+   <line x1="305" y1="4" x2="305" y2="22" stroke="currentColor" stroke-width="2"/>
+   ${[[0,130,70],[72,120,62],[136,136,58],[196,126,52],[352,132,68]].map(([x,y,w])=>`
+     <path d="M${x} 196 V${y+16} L${x+8} ${y} H${x+w-8} L${x+w} ${y+16} V196Z" fill="currentColor" opacity=".55"/>
+     ${[0,1,2].map(i=>`<rect x="${x+10+i*(w-20)/3}" y="${y+4}" width="${(w-20)/3-6}" height="8" fill="currentColor" opacity=".55"/>`).join("")}
+     ${[0,1,2,3].map(r=>[0,1,2].map(i=>`<rect x="${x+12+i*(w-20)/3}" y="${y+26+r*18}" width="${(w-20)/3-10}" height="10" fill="var(--hero)" opacity=".55"/>`).join("")).join("")}`).join("")}
+   <rect x="0" y="196" width="420" height="14" fill="currentColor" opacity=".38"/>
+ </svg>`
+};
+
+const CITIES = {
+  sydney:{name:"Sydney", tz:"Australia/Sydney", tzLabel:"AEDT", dates:"6–12 Dec", start:"2026-12-06", end:"2026-12-12", venue:"ICC Sydney",
+    eyebrow:"Unofficial safety guide · Main conference",
+    lede:"The main NeurIPS site carries most of the safety program: a MATS expo day, a formal-guarantees tutorial, two safety socials, an evaluation keynote and two full days of alignment, interpretability and agent-safety workshops. Australian safety groups run most of the side events.",
+    tz_note:"Times in Sydney local time (AEDT, UTC+11). Official items come from neurips.cc; side events from Luma pages and the community tracker.",
+    phases:{"2026-12-06":"Expo day","2026-12-07":"Tutorials","2026-12-08":"Main conference","2026-12-09":"Main conference","2026-12-10":"Main conference","2026-12-11":"Workshops","2026-12-12":"Workshops"},
+    aroundIntro:"ICC Sydney sits at the southern end of Darling Harbour, between Haymarket and Pyrmont. Most of the city centre is walkable.",
+    around:[
+      {m:"Light rail L1",t:"≈ 6 min",d:"From Central station to the Exhibition Centre stop, beside ICC Sydney."},
+      {m:"Walk from Town Hall",t:"≈ 12 min",d:"Through Darling Square to the convention centre. The easiest route from CBD hotels."},
+      {m:"Ferry",t:"Varies",d:"Darling Harbour wharves (Barangaroo, Pyrmont Bay) connect to Circular Quay and onward to Manly."}],
+    route:{stops:["Sydney Airport","Central","Exhibition Centre","ICC Sydney"],segs:["T8 train · ≈ 15 min","L1 light rail · ≈ 6 min","Walk · 2 min"]},
+    pay:"Tap on and off with an Opal card, a contactless bank card or your phone. Fares cap daily and weekly. The airport stations add an access fee.",
+    tips:[
+      {k:"Sun",v:"UV is high in December even when it's cloudy. Bring sunscreen and a hat."},
+      {k:"Power",v:"Type I plugs, 230 V."},
+      {k:"Tipping",v:"Not expected. Rounding up for good service is fine."},
+      {k:"Approval",v:"Both SASS events are approval-only with registration closed. The Gradient × FAR.AI panel is waitlist-only."}]},
+  atlanta:{name:"Atlanta", tz:"America/New_York", tzLabel:"EST", dates:"9–13 Dec", start:"2026-12-09", end:"2026-12-13", venue:"Georgia World Congress Center",
+    eyebrow:"Unofficial safety guide · Satellite site",
+    lede:"The Atlanta satellite has the only agentic-AI safety tutorial, the cross-domain Breaking Silos in AI Safety social and the Child Safety in AI workshop, plus a run of evaluation and interpretability workshops.",
+    tz_note:"Times in Atlanta local time (EST, UTC−5), converted from the AEDT times neurips.cc displays. Atlanta items appear one day later on neurips.cc.",
+    phases:{"2026-12-09":"Tutorials & main","2026-12-10":"Main conference","2026-12-11":"Main conference","2026-12-12":"Workshops","2026-12-13":"Workshops"},
+    aroundIntro:"The Georgia World Congress Center is downtown, next to Centennial Olympic Park. MARTA rail stops beside it.",
+    around:[
+      {m:"MARTA rail",t:"Blue & Green lines",d:"Ride west from Five Points one stop to the station beside the convention centre."},
+      {m:"Walk",t:"5–15 min",d:"Most downtown hotels around Centennial Olympic Park are a short walk away."},
+      {m:"Rideshare",t:"≈ 10–15 min",d:"The easiest way to reach Midtown, the BeltLine and Inman Park in the evening."}],
+    route:{stops:["Airport (ATL)","Five Points","GWCC station","GWCC"],segs:["Red or Gold line · ≈ 17 min","Blue or Green line · 1 stop","Walk · 3 min"]},
+    pay:"Pay with a Breeze card or the Breeze mobile app. The airport MARTA station is inside the domestic terminal.",
+    tips:[
+      {k:"Weather",v:"Days are around 10–15 °C and nights can drop close to freezing. Bring a jacket."},
+      {k:"Power",v:"Type A/B plugs, 120 V."},
+      {k:"Tipping",v:"18–20% at restaurants and bars is standard."},
+      {k:"Streaming",v:"Atlanta talks, tutorials and workshops are streamed. Socials and posters are in person only."}]},
+  paris:{name:"Paris", tz:"Europe/Paris", tzLabel:"CET", dates:"9–13 Dec", start:"2026-12-09", end:"2026-12-13", venue:"Palais des Congrès",
+    eyebrow:"Unofficial safety guide · NeurIPS Europe",
+    lede:"NeurIPS Europe, the successor to EurIPS, leans toward security, privacy and trustworthy AI, with workshops on language-model security, AI for peace and aligned memory. Community safety events are thin so far. Conference registration is sold out.",
+    tz_note:"Times in Paris local time (CET, UTC+1), converted from the AEDT times neurips.cc displays.",
+    phases:{"2026-12-09":"Tutorials & main","2026-12-10":"Main conference","2026-12-11":"Main conference","2026-12-12":"Workshops","2026-12-13":"Workshops"},
+    aroundIntro:"The Palais des Congrès is at Porte Maillot on the western edge of Paris, on Métro Line 1 and the RER.",
+    around:[
+      {m:"Métro Line 1",t:"Porte Maillot",d:"Stops at the venue and runs straight through the centre to the Louvre, Châtelet and the Marais."},
+      {m:"RER C & RER E",t:"Neuilly–Porte Maillot",d:"RER E links to Saint-Lazare and La Défense. RER C runs along the Seine."},
+      {m:"Walk",t:"≈ 15 min",d:"To the Arc de Triomphe along Avenue de la Grande Armée."}],
+    route:{stops:["CDG Airport","Châtelet–Les Halles","Porte Maillot","Palais des Congrès"],segs:["RER B · ≈ 35 min","Métro Line 1 · ≈ 15 min","Walk · 2 min"]},
+    pay:"Use a Navigo Easy card or the Bonjour RATP app. Airport trips need an airport fare, not a standard ticket. From Orly, take Métro Line 14 to Châtelet, then Line 1.",
+    tips:[
+      {k:"Weather",v:"Expect 3–8 °C, rain and early sunsets. Pack a warm coat."},
+      {k:"Power",v:"Type E plugs, 230 V."},
+      {k:"Tipping",v:"Service is included. Leaving a little extra for good service is common."},
+      {k:"Strikes",v:"Check RATP and SNCF for strike notices before travelling to the airport."}]}
+};
+const GLOBAL_TIPS = [
+  {k:"Time zones",v:"neurips.cc shows every event in Sydney time (AEDT), even Atlanta and Paris. All times here are converted to local time."},
+  {k:"Dates flagged",v:"Events marked Unconfirmed have dates from a single community source. Check the event page before you plan around them."}
+];
+
+const NC = "https://neurips.cc/virtual/2026/";
+const EVENTS = [
+ {c:"sydney",d:"2026-12-06",t:"",l:"Day TBD",title:"PauseAI @NeurIPS",k:"side",host:"PauseAI Australia",venue:"Outside a Sydney conference location",st:"tbd",note:"Day and time not set by the host. Dec 6 is from the community tracker.",url:"https://luma.com/6ridtv1g"},
+ {c:"sydney",d:"2026-12-06",t:"11:00",e:"12:00",title:"When Models Optimize: From Automated Red Teaming to Reward Hacking",k:"expo",host:"Host not listed",venue:"ICC Sydney",url:NC+"loc/sydney/calendar"},
+ {c:"sydney",d:"2026-12-06",t:"12:00",e:"13:00",title:"Scaling AI Safety & Security",k:"expo",host:"MATS Research",venue:"Grand Ballroom B2/B3",url:NC+"loc/sydney/events/expo-2026"},
+ {c:"sydney",d:"2026-12-06",t:"12:00",e:"14:00",title:"CyberStrike and Challenge the Guardrails demos",k:"expo",adj:1,host:"Turing Frontier Research Lab; CommBank AI Labs",venue:"ICC Sydney",url:NC+"loc/sydney/events/expo-2026"},
+ {c:"sydney",d:"2026-12-06",t:"14:00",e:"17:00",title:"Priorities in AI Safety & Security",k:"expo",host:"MATS Research",venue:"Pyrmont Theatre",url:NC+"loc/sydney/events/expo-2026"},
+ {c:"sydney",d:"2026-12-07",t:"09:00",e:"12:00",title:"From Scores to Evidence: Robust Evaluation of Foundation Models",k:"tutorial",adj:1,host:"Gjorgjevikj et al.",venue:"Darling Harbour Theatre",url:NC+"loc/sydney/events/tutorial"},
+ {c:"sydney",d:"2026-12-07",t:"09:00",e:"12:00",title:"Uncertainty Quantification for hallucinations and agents",k:"tutorial",adj:1,host:"Shelmanov et al.",venue:"Grand Ballroom B2/B3",url:NC+"loc/sydney/events/tutorial"},
+ {c:"sydney",d:"2026-12-07",t:"14:00",e:"17:00",title:"Formal Guarantees for Frontier AI Systems",k:"tutorial",host:"Gagandeep Singh, Isha Chaudhary, Nalin Wadhwa",venue:"Pyrmont Theatre",url:NC+"loc/sydney/events/tutorial"},
+ {c:"sydney",d:"2026-12-07",t:"",l:"Evening",title:"The State of Frontier AI Evaluation and Red Teaming",k:"side",host:"Gradient Institute × FAR.AI · speakers incl. Karl Berzins (FAR.AI), Paul Salmon (Australian AISI), Sarah Erfani",venue:"IAG, Darling Park Tower Two, 201 Sussex St",st:"full",note:"Date from the community tracker; the Luma page shows no date.",url:"https://luma.com/h88d5x3l"},
+ {c:"sydney",d:"2026-12-08",t:"",l:"Time TBD",title:"Evaluating Long Horizon Agents",k:"side",adj:1,host:"Appen",venue:"Sydney",st:"tbd",note:"Date from the community tracker; not verified.",url:"https://luma.com/whdzlte4"},
+ {c:"sydney",d:"2026-12-08",t:"19:00",e:"21:00",title:"Building Multilingual and Multiregional Safety Datasets",k:"social",host:"Tharindu Cyril Weerasooriya, Claire Dennis",venue:"MR C3.2",url:NC+"events/social"},
+ {c:"sydney",d:"2026-12-09",t:"09:00",e:"10:00",title:"Satinder Singh: The Better AIngels of our Future",k:"keynote",host:"Google DeepMind / U. Michigan · RL, alignment and reward hacking",venue:"TikTok Entertainment Centre",url:NC+"loc/sydney/eventlistwithbios/Invited%20Talk"},
+ {c:"sydney",d:"2026-12-09",t:"",l:"Afternoon",title:"AI Safety Afternoon Café: Collabs & Co-Founders",k:"side",host:"Sydney AI Safety Space (SASS) · for people starting safety orgs",venue:"3 Little Queen St, Chippendale",st:"closed",note:"Date from the community tracker.",url:"https://luma.com/lj8rl449"},
+ {c:"sydney",d:"2026-12-09",t:"19:00",e:"21:00",title:"Finding Your Path in AI Safety & Security Research",k:"social",host:"Eric Dhan, Patrick Keane",venue:"MR C3.2",url:NC+"social/180832"},
+ {c:"sydney",d:"2026-12-10",t:"09:00",e:"10:00",title:"Shannon Vallor: The Knowledge Box: AI and Epistemic Dispossession",k:"keynote",adj:1,host:"University of Edinburgh",venue:"TikTok Entertainment Centre",url:NC+"loc/sydney/eventlistwithbios/Invited%20Talk"},
+ {c:"sydney",d:"2026-12-10",t:"14:00",e:"15:00",title:"José Hernández-Orallo: The Future of AI Evaluation",k:"keynote",host:"Leverhulme CFI, Cambridge · misalignment, red lines and monitoring",venue:"TikTok Entertainment Centre",url:NC+"loc/sydney/eventlistwithbios/Invited%20Talk"},
+ {c:"sydney",d:"2026-12-10",t:"18:30",e:"21:30",title:"AI Safety Networking Night",k:"side",host:"Sydney AI Safety Space (SASS)",venue:"About 5 min walk from ICC; address on approval",st:"closed",note:"Luma says Thu 10 Dec; some listings still say Fri 11 Dec.",url:"https://luma.com/qw32xqfa"},
+ {c:"sydney",d:"2026-12-11",t:"08:00",e:"10:15",title:"Predictive AI Evaluation Competition",k:"competition",adj:1,host:"Stanford AIMS lab (Koyejo et al.)",venue:"MR C4.3",url:NC+"events/competition"},
+ {c:"sydney",d:"2026-12-11",t:"08:00",e:"17:00",title:"Agents in the Wild: Safety, Security, and Beyond",k:"workshop",host:"Speakers incl. Yoshua Bengio, Dawn Song, Meta Superintelligence Labs",venue:"Hall 5",url:"https://agentwild-workshop.github.io/neurips2026/"},
+ {c:"sydney",d:"2026-12-11",t:"08:00",e:"17:00",title:"Dynamic Alignment in Human-AI Coupled Systems",k:"workshop",host:"Organizers incl. Bengio, Song, Bruna",venue:"Cockle Bay Room 1",url:NC+"loc/sydney/events/workshop"},
+ {c:"sydney",d:"2026-12-11",t:"08:00",e:"17:00",title:"Interpretability as a Science",k:"workshop",host:"Sponsor Schmidt Sciences · speaker Been Kim (Google DeepMind)",venue:"Hall 2",url:"https://interpscience.github.io/"},
+ {c:"sydney",d:"2026-12-11",t:"08:00",e:"17:00",title:"Managing Agents that Manage Agents: Responsible Meta-Agents",k:"workshop",host:"Manning, Shi et al.",venue:"Hall 3",url:NC+"loc/sydney/events/workshop"},
+ {c:"sydney",d:"2026-12-12",t:"08:00",e:"17:00",title:"Who Verifies the Agents?",k:"workshop",host:"Beirami et al.",venue:"Hall 5",url:NC+"loc/sydney/events/workshop"},
+ {c:"sydney",d:"2026-12-12",t:"08:00",e:"17:00",title:"Can We Trust AI Evaluation?",k:"workshop",host:"Erfani, Hovy et al.",venue:"MR C2.2–C2.3",url:NC+"loc/sydney/events/workshop"},
+ {c:"sydney",d:"2026-12-12",t:"08:00",e:"17:00",title:"Interpreting Agent Behavior",k:"workshop",host:"Gao et al.",venue:"MR C3.4–C3.5",url:NC+"loc/sydney/events/workshop"},
+ {c:"sydney",d:"2026-12-12",t:"08:00",e:"17:00",title:"Beyond Private Training: AI Privacy",k:"workshop",adj:1,host:"Chaudhuri et al.",venue:"MR C3.2",url:NC+"loc/sydney/events/workshop"},
+ {c:"atlanta",d:"2026-12-09",t:"09:00",title:"Ayanna Howard: Physical AI: Technology, Trust, and How Not to Lose Your Cool",k:"keynote",adj:1,host:"Spelman College",venue:"Hall C3",url:NC+"loc/atlanta/eventlistwithbios/Invited%20Talk"},
+ {c:"atlanta",d:"2026-12-09",t:"11:00",e:"14:00",title:"Towards Trustworthy Agentic AI: Interpretability, Safety, and Steering",k:"tutorial",host:"Anshuman Chhabra, Muhao Chen, Ben Zhou",venue:"C113–114",url:NC+"loc/atlanta/events/tutorial"},
+ {c:"atlanta",d:"2026-12-10",t:"17:00",e:"19:00",title:"Can We Trust the Grader? Drinks on Evals and Expert Judgment",k:"side",adj:1,host:"GLG Frontier",venue:"Park Bar, 150 Walton St NW",st:"approval",note:"Date from the community tracker.",url:"https://luma.com/7bj9cpmq"},
+ {c:"atlanta",d:"2026-12-10",t:"19:00",e:"21:00",title:"Breaking Silos in AI Safety: Connecting Communities Across Domains",k:"social",host:"Chhavi Yadav · cybersecurity, biosecurity, child safety, agents and policy",venue:"Room C205, GWCC",note:"neurips.cc lists Fri 11 Dec, 11 AM–1 PM AEDT. Converted to Atlanta time.",url:NC+"social/180839"},
+ {c:"atlanta",d:"2026-12-11",t:"09:00",title:"Sasha Luccioni: Power to the People? Why AI Data Centers Face Growing Resistance",k:"keynote",adj:1,host:"Sustainable AI Group",venue:"Hall C3",url:NC+"loc/atlanta/eventlistwithbios/Invited%20Talk"},
+ {c:"atlanta",d:"2026-12-12",t:"08:00",e:"17:00",title:"Child Safety in AI",k:"workshop",host:"Muhamed, Portnoff, Smith, Strait, Suriyakumar, Wilson, Wilson",venue:"C211–213",url:"https://childsafety-ai.github.io/"},
+ {c:"atlanta",d:"2026-12-12",t:"08:00",e:"17:00",title:"Can We Trust the Judge?",k:"workshop",host:"Koshal et al. · LLM-as-judge evaluation",venue:"C205",url:NC+"loc/atlanta/events/workshop"},
+ {c:"atlanta",d:"2026-12-12",t:"08:00",e:"17:00",title:"Interpretability for Discovery",k:"workshop",host:"Belinkov, Lubana, Tan et al.",venue:"C108–C109",url:NC+"loc/atlanta/events/workshop"},
+ {c:"atlanta",d:"2026-12-12",t:"08:00",e:"17:00",title:"SaTQuML: Secure and Trustworthy Quantum ML",k:"workshop",adj:1,host:"Rahman, Szefer et al.",venue:"C206",url:NC+"loc/atlanta/events/workshop"},
+ {c:"atlanta",d:"2026-12-12",t:"08:00",e:"17:00",title:"AI-Native Academia",k:"workshop",adj:1,host:"Zhang, Wang et al. · conference governance under AI",venue:"C202–C204",url:NC+"loc/atlanta/events/workshop"},
+ {c:"atlanta",d:"2026-12-13",t:"08:00",e:"17:00",title:"Workshop on Evaluation of Interactive Agents",k:"workshop",host:"Dou, Eisenstein, Ritter et al.",venue:"C208–C209",url:NC+"loc/atlanta/events/workshop"},
+ {c:"atlanta",d:"2026-12-13",t:"08:00",e:"17:00",title:"Human-AI Coevolution: Measuring Human-Agent Teams",k:"workshop",adj:1,host:"",venue:"C105–C106",url:NC+"loc/atlanta/events/workshop"},
+ {c:"paris",d:"2026-12-09",t:"14:00",title:"Ulrike von Luxburg: Why informative explanations only exist for simple functions, and what this means for the EU AI Act",k:"keynote",host:"University of Tübingen",venue:"Grand Amphithéâtre",url:NC+"loc/paris/eventlistwithbios/Invited%20Talk"},
+ {c:"paris",d:"2026-12-11",t:"15:00",e:"18:00",title:"Economics of Generative AI",k:"tutorial",adj:1,host:"Presenters incl. Sandra Wachter",venue:"Palais des Congrès",url:NC+"loc/paris/events/tutorial"},
+ {c:"paris",d:"2026-12-11",t:"18:00",e:"21:00",title:"Safety by Design: Private Dinner & Expert Panel",k:"side",host:"AI Circle × Alice (formerly ActiveFence) · EU AI Act and agent risks",venue:"Ternes area; address on approval",st:"approval",url:"https://luma.com/ai-2xao"},
+ {c:"paris",d:"2026-12-12",t:"08:30",e:"18:30",title:"Trustworthy AI for Good (AI4GOOD)",k:"workshop",host:"Mihalcea, Tambe, Schroeder de Witt, Zhijing Jin et al.",venue:"Room 252",url:NC+"loc/paris/events/workshop"},
+ {c:"paris",d:"2026-12-12",t:"08:30",e:"18:30",title:"AI for Peace",k:"workshop",host:"Garcia, Kalantidis et al.",venue:"Room 243",url:"https://aiforpeaceworkshop.github.io/"},
+ {c:"paris",d:"2026-12-12",t:"08:30",e:"18:30",title:"Foundations of LLM Post-Training in Changing Environments",k:"workshop",host:"ELLIS Units Paris & Oxford · brings in safety researchers",venue:"Palais des Congrès",url:"https://ellis.eu/events/neurips-2026-workshop-foundations-of-llm-post-training-in-changing-environments"},
+ {c:"paris",d:"2026-12-13",t:"08:30",e:"18:30",title:"Foundations of Language Model Security",k:"workshop",host:"Zverev, Pintor, Cretu et al.",venue:"Room 253",url:NC+"loc/paris/events/workshop"},
+ {c:"paris",d:"2026-12-13",t:"08:30",e:"18:30",title:"PALM: Personalized, Aligned, Long-Term Memory",k:"workshop",host:"Fritz, Oh, Abdelnabi et al.",venue:"Room 351",url:NC+"loc/paris/events/workshop"},
+ {c:"paris",d:"2026-12-13",t:"08:30",e:"18:30",title:"Privacy in the Era of Large Opaque Models",k:"workshop",adj:1,host:"Boenisch, Dziedzic et al.",venue:"Room 243",url:NC+"loc/paris/events/workshop"},
+ {c:"paris",d:"2026-12-13",t:"08:30",e:"18:30",title:"E-Values: auditing LLMs",k:"workshop",adj:1,host:"",venue:"Palais des Congrès",url:NC+"loc/paris/events/workshop"}
+];
+
+const ORGS = [
+ {c:"sydney",n:"MATS Research",ty:"Safety talent program",r:"Expo talk and expo workshop on 6 Dec. Expo slots go to Diamond and Platinum exhibitors, so very likely a top-tier exhibitor.",cf:"Confirmed",u:NC+"loc/sydney/events/expo-2026"},
+ {c:"sydney",n:"Gradient Institute",ty:"Australian responsible-AI nonprofit",r:"Hosts the Frontier AI Evaluation and Red Teaming panel.",cf:"Confirmed",u:"https://luma.com/h88d5x3l"},
+ {c:"sydney",n:"FAR.AI",ty:"Safety research nonprofit",r:"Co-hosts the Gradient panel. No co-located Alignment Workshop this year.",cf:"Confirmed",u:"https://far.ai/events"},
+ {c:"sydney",n:"Australian AI Safety Institute",ty:"Government",r:"Paul Salmon speaks at the Gradient × FAR.AI panel.",cf:"Confirmed",u:"https://luma.com/h88d5x3l"},
+ {c:"sydney",n:"Sydney AI Safety Space",ty:"Local safety community",r:"Hosts the Networking Night and the Collabs & Co-Founders café.",cf:"Confirmed",u:"https://luma.com/qw32xqfa"},
+ {c:"sydney",n:"PauseAI Australia",ty:"Advocacy",r:"Planned presence outside a Sydney conference location. Day not set.",cf:"Confirmed",u:"https://luma.com/6ridtv1g"},
+ {c:"sydney",n:"Google DeepMind",ty:"Frontier lab",r:"Been Kim speaks at Interpretability as a Science; Satinder Singh's alignment keynote.",cf:"Confirmed",u:"https://interpscience.github.io/"},
+ {c:"sydney",n:"Meta Superintelligence Labs",ty:"Frontier lab",r:"Speakers and panelists at Agents in the Wild.",cf:"Confirmed",u:"https://agentwild-workshop.github.io/neurips2026/"},
+ {c:"sydney",n:"LawZero / Mila · Berkeley RDI",ty:"Safety research",r:"Bengio and Song speak at Agents in the Wild and co-organize Dynamic Alignment.",cf:"Confirmed",u:"https://agentwild-workshop.github.io/neurips2026/"},
+ {c:"sydney",n:"Schmidt Sciences",ty:"Funder",r:"Sole listed sponsor of Interpretability as a Science.",cf:"Confirmed",u:"https://interpscience.github.io/"},
+ {c:"sydney",n:"Leverhulme CFI, Cambridge",ty:"Academic",r:"José Hernández-Orallo's keynote on AI evaluation and red lines.",cf:"Confirmed",u:NC+"loc/sydney/eventlistwithbios/Invited%20Talk"},
+ {c:"atlanta",n:"GLG Frontier",ty:"Evals industry",r:"Hosts the Can We Trust the Grader? evals drinks.",cf:"Confirmed",u:"https://luma.com/7bj9cpmq"},
+ {c:"atlanta",n:"Georgia Tech AI Safety Initiative",ty:"Student safety group",r:"Active locally at the satellite chairs' home institution. No NeurIPS event found yet.",cf:"Not announced",u:"https://aisi.dev"},
+ {c:"atlanta",n:"Anthropic · OpenAI",ty:"Frontier labs",r:"Individual speaker roles listed by a third-party aggregator only. No hosted safety events found.",cf:"Unverified",u:"https://agentjesse.ai/lists/neurips-2026-companies"},
+ {c:"paris",n:"AI Circle × Alice",ty:"Trust & safety industry",r:"Hosts the Safety by Design dinner and panel.",cf:"Confirmed",u:"https://luma.com/ai-2xao"},
+ {c:"paris",n:"ELLIS Units Paris & Oxford",ty:"Academic network",r:"Run the LLM post-training workshop that brings in safety researchers.",cf:"Confirmed",u:"https://ellis.eu/events/neurips-2026-workshop-foundations-of-llm-post-training-in-changing-environments"},
+ {c:"paris",n:"CeSIA",ty:"French AI safety center",r:"No NeurIPS side event found yet.",cf:"Not announced",u:""}
+];
+const MISSING = ["UK AI Security Institute","US CAISI","METR","Apollo Research","Redwood Research","Center for AI Safety","ARC","Goodfire","Transluce","EleutherAI","Epoch AI","CHAI","Constellation","Cooperative AI Foundation","Coefficient Giving","Longview","SFF"];
+
+const KIND = {workshop:"Workshop",competition:"Competition",tutorial:"Tutorial",keynote:"Keynote",expo:"Expo",social:"Official social",side:"Side event"};
+const GROUP = {workshop:"workshop",competition:"workshop",tutorial:"talk",keynote:"talk",expo:"talk",social:"social",side:"side"};
+const STATUS = {full:["Full · waitlist","bad"],closed:["Registration closed","bad"],approval:["Approval required","warn"],tbd:["Date TBC","warn"]};
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g,"-").slice(0,48);
+EVENTS.forEach(ev => ev.id = ev.c + "-" + ev.d.slice(8) + "-" + slug(ev.title));
+
+let stars = new Set();
+try { stars = new Set(JSON.parse(localStorage.getItem("nsw-stars") || "[]")); } catch(e) {}
+const saveStars = () => { try { localStorage.setItem("nsw-stars", JSON.stringify([...stars])); } catch(e) {} };
+
+let city = "sydney", filter = "all", query = "", coreOnly = false;
+try { const f = localStorage.getItem("nsw-filter"); if (f) filter = f; } catch(e) {}
+
+const sortKey = ev => ev.t || ({Afternoon:"13:00",Evening:"18:00"}[ev.l] || "00:00");
+const fmtDay = d => new Date(d + "T12:00:00Z").toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"short",timeZone:"UTC"});
+
+function calLink(ev){
+  const C = CITIES[ev.c];
+  const ymd = ev.d.replace(/-/g,"");
+  let dates;
+  if (ev.t) {
+    const [h,m] = ev.t.split(":").map(Number);
+    const end = ev.e || String(h+1).padStart(2,"0") + ":" + String(m).padStart(2,"0");
+    dates = `${ymd}T${ev.t.replace(":","")}00/${ymd}T${end.replace(":","")}00`;
+  } else {
+    const nx = new Date(ev.d + "T12:00:00Z"); nx.setUTCDate(nx.getUTCDate()+1);
+    dates = `${ymd}/${nx.toISOString().slice(0,10).replace(/-/g,"")}`;
+  }
+  const p = new URLSearchParams({action:"TEMPLATE",text:ev.title,dates,ctz:C.tz,location:`${ev.venue}, ${C.name}`,details:`${ev.host ? ev.host + "\n" : ""}${ev.url}`});
+  return "https://calendar.google.com/calendar/render?" + p.toString();
+}
+
+function visible(ev){
+  if (ev.c !== city) return false;
+  if (coreOnly && ev.adj) return false;
+  if (filter === "starred" && !stars.has(ev.id)) return false;
+  if (!["all","starred"].includes(filter) && GROUP[ev.k] !== filter) return false;
+  if (query && !(ev.title + " " + ev.host + " " + ev.venue).toLowerCase().includes(query)) return false;
+  return true;
+}
+
+function renderAgenda(){
+  const C = CITIES[city];
+  const list = EVENTS.filter(visible).sort((a,b) => a.d.localeCompare(b.d) || sortKey(a).localeCompare(sortKey(b)));
+  const total = EVENTS.filter(e => e.c === city).length;
+  $("#evCount").textContent = list.length === total ? `${total} events` : `${list.length} of ${total} events`;
+  $("#navEvents").textContent = `Safety events ${total}`;
+  if (!list.length) {
+    $("#agenda").innerHTML = `<p class="empty">${filter === "starred" ? "No starred events in " + esc(C.name) + " yet. Tap the star on any event to add it to your week." : "No events match these filters."}</p>`;
+    return;
+  }
+  const days = {};
+  list.forEach(ev => (days[ev.d] ||= []).push(ev));
+  $("#agenda").innerHTML = Object.entries(days).map(([d, evs]) => `
+    <div class="day">
+      <div class="dayhead"><span class="dnum">${+d.slice(8)}</span><h3>${esc(fmtDay(d))}</h3><span class="phase">${esc(C.phases[d] || "")}</span></div>
+      ${evs.map(evHTML).join("")}
+    </div>`).join("");
+}
+
+function evHTML(ev){
+  const time = ev.t ? `${ev.t}${ev.e ? "–" + ev.e : ""}` : esc(ev.l || "TBD");
+  const st = STATUS[ev.st];
+  const on = stars.has(ev.id);
+  return `<article class="ev${ev.adj ? " adjacent" : ""}">
+    <div class="time">${time}<small>${CITIES[ev.c].tzLabel}</small></div>
+    <div style="min-width:0">
+      <h4><a href="${esc(ev.url)}" target="_blank" rel="noopener">${esc(ev.title)}</a></h4>
+      <div class="meta">${ev.host ? esc(ev.host) + " · " : ""}${esc(ev.venue)}</div>
+      <div class="tags">
+        <span class="tag ${ev.k === "side" ? "side" : "kind"}">${KIND[ev.k]}</span>
+        ${ev.k !== "side" ? `<span class="tag">On the official program</span>` : ""}
+        ${st ? `<span class="tag ${st[1]}">${st[0]}</span>` : ""}
+        ${ev.adj ? `<span class="tag">Safety-adjacent</span>` : ""}
+      </div>
+      ${ev.note ? `<div class="note">Unconfirmed: ${esc(ev.note)}</div>` : ""}
+    </div>
+    <div class="acts">
+      <button class="star" data-id="${ev.id}" aria-pressed="${on}" aria-label="${on ? "Unstar" : "Star"} ${esc(ev.title)}">${on ? "★" : "☆"}</button>
+      <a class="cal" href="${esc(calLink(ev))}" target="_blank" rel="noopener">+ Calendar</a>
+    </div>
+  </article>`;
+}
+
+function renderOrgs(){
+  const list = ORGS.filter(o => o.c === city);
+  $("#orgCount").textContent = `${list.length} in ${CITIES[city].name}`;
+  const cls = {Confirmed:"ok",Unverified:"warn","Not announced":""};
+  $("#orgList").innerHTML = list.map(o => `<div class="card">
+    <h4>${o.u ? `<a href="${esc(o.u)}" target="_blank" rel="noopener" style="color:inherit">${esc(o.n)}</a>` : esc(o.n)}</h4>
+    <div class="otype">${esc(o.ty)}</div>
+    <p>${esc(o.r)}</p>
+    <div class="tags"><span class="tag ${cls[o.cf]}">${esc(o.cf)}</span></div>
+  </div>`).join("");
+  $("#missing").innerHTML = MISSING.map(m => `<span>${esc(m)}</span>`).join("");
+}
+
+function routeSVG(r){
+  const W = 640, pad = 70, n = r.stops.length, step = (W - pad*2) / (n - 1);
+  const xs = r.stops.map((_, i) => pad + i*step);
+  const segs = r.segs.map((s, i) => {
+    const walk = /^Walk/.test(s);
+    return `<line x1="${xs[i]}" y1="40" x2="${xs[i+1]}" y2="40" stroke="var(--accent)" stroke-width="${walk ? 3 : 7}" ${walk ? 'stroke-dasharray="4 6" stroke-linecap="round"' : 'stroke-linecap="round"'}/>
+      <text class="seg" x="${(xs[i]+xs[i+1])/2}" y="22" text-anchor="middle">${esc(s)}</text>`;
+  }).join("");
+  const stops = r.stops.map((s, i) => {
+    const last = i === n - 1;
+    return `<circle cx="${xs[i]}" cy="40" r="${last ? 11 : 8}" fill="${last ? "var(--accent)" : "var(--surface)"}" stroke="var(--accent)" stroke-width="3"/>
+      <text class="lbl" x="${xs[i]}" y="74" text-anchor="middle">${esc(s)}</text>`;
+  }).join("");
+  const list = `<ol class="route-list">${r.stops.map((s, i) => `<li><b>${esc(s)}</b>${r.segs[i] ? `<span>${esc(r.segs[i])}</span>` : ""}</li>`).join("")}</ol>`;
+  return `<svg viewBox="0 0 ${W} 90" role="img" aria-label="Route: ${esc(r.stops.join(" to "))}">${segs}${stops}</svg>${list}`;
+}
+
+function renderGuide(){
+  const C = CITIES[city];
+  $("#aroundIntro").textContent = C.aroundIntro;
+  $("#aroundList").innerHTML = C.around.map(a => `<div class="card"><h4>${esc(a.m)}</h4><div class="sub">${esc(a.t)}</div><p>${esc(a.d)}</p></div>`).join("");
+  $("#routeMap").innerHTML = routeSVG(C.route);
+  $("#payNote").textContent = C.pay;
+  if (!subTouched) $("#fCity").value = city;
+  $("#tipList").innerHTML = [...C.tips, ...GLOBAL_TIPS].map(t => `<div class="tip"><b>${esc(t.k)}</b><p>${esc(t.v)}</p></div>`).join("");
+}
+
+function renderStars(){
+  const n = EVENTS.filter(e => stars.has(e.id)).length;
+  $("#starCount").textContent = n ? `${n} starred across all cities.` : "Star events to build your week.";
+}
+
+function tick(){
+  const C = CITIES[city];
+  $("#sNow").textContent = new Intl.DateTimeFormat("en-GB",{timeZone:C.tz,weekday:"short",hour:"2-digit",minute:"2-digit"}).format(new Date());
+  const today = new Intl.DateTimeFormat("en-CA",{timeZone:C.tz}).format(new Date());
+  const days = Math.round((Date.parse(C.start) - Date.parse(today)) / 864e5);
+  const after = Date.parse(today) > Date.parse(C.end);
+  $("#sCount").textContent = after ? "Wrapped" : days > 1 ? `${days} days` : days === 1 ? "Tomorrow" : "Under way";
+}
+
+function setCity(c){
+  if (!CITIES[c]) c = "sydney";
+  city = c;
+  const C = CITIES[c];
+  document.body.dataset.city = c;
+  document.querySelectorAll(".cities a").forEach(a => a.setAttribute("aria-current", a.dataset.c === c ? "page" : "false"));
+  $("#cityName").textContent = C.name;
+  $("#eyebrow").textContent = C.eyebrow;
+  $("#lede").textContent = C.lede;
+  $("#skyline").innerHTML = SKY[c];
+  $("#sDates").textContent = C.dates;
+  $("#sVenue").textContent = C.venue;
+  $("#sNowLabel").textContent = `${C.name} now`;
+  $("#tzNote").textContent = C.tz_note;
+  tick(); renderAgenda(); renderOrgs(); renderGuide();
+}
+
+document.querySelectorAll("[data-go]").forEach(b => b.addEventListener("click", () => {
+  const el = document.getElementById(b.dataset.go);
+  if (el) el.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block:"start"});
+}));
+document.querySelectorAll(".chip").forEach(b => {
+  b.setAttribute("aria-pressed", b.dataset.f === filter);
+  b.addEventListener("click", () => {
+    filter = b.dataset.f;
+    try { localStorage.setItem("nsw-filter", filter); } catch(e) {}
+    document.querySelectorAll(".chip").forEach(x => x.setAttribute("aria-pressed", x === b));
+    renderAgenda();
+  });
+});
+$("#q").addEventListener("input", e => { query = e.target.value.trim().toLowerCase(); renderAgenda(); });
+$("#core").addEventListener("change", e => { coreOnly = e.target.checked; renderAgenda(); });
+$("#agenda").addEventListener("click", e => {
+  const b = e.target.closest(".star"); if (!b) return;
+  const id = b.dataset.id;
+  stars.has(id) ? stars.delete(id) : stars.add(id);
+  saveStars(); renderAgenda(); renderStars();
+});
+$("#copyBtn").addEventListener("click", () => {
+  const mine = EVENTS.filter(e => stars.has(e.id)).sort((a,b) => a.c.localeCompare(b.c) || a.d.localeCompare(b.d) || sortKey(a).localeCompare(sortKey(b)));
+  const msg = $("#copyMsg"), ta = $("#copyFallback");
+  if (!mine.length) { msg.textContent = "Star a few events first."; return; }
+  const text = "My NeurIPS 2026 safety week\n\n" + mine.map(e => {
+    const C = CITIES[e.c];
+    const time = e.t ? `${e.t}${e.e ? "–" + e.e : ""} ${C.tzLabel}` : (e.l || "TBD");
+    return `${C.name} · ${fmtDay(e.d)} · ${time}\n${e.title}\n${e.venue}\n${e.url}`;
+  }).join("\n\n");
+  const fallback = () => { ta.value = text; ta.hidden = false; ta.focus(); ta.select(); msg.textContent = "Select and copy the text below."; };
+  try { navigator.clipboard.writeText(text).then(() => { msg.textContent = "Copied to clipboard."; ta.hidden = true; }, fallback); }
+  catch(e) { fallback(); }
+});
+
+const REPO = "varchanaiyer/neurips-2026-safety-week";
+let subTouched = false;
+$("#fCity").addEventListener("change", () => { subTouched = true; });
+$("#subForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const req = ["#fTitle","#fDate","#fHost","#fUrl"];
+  let bad = null;
+  req.forEach(id => {
+    const el = $(id); const ok = el.value.trim() && el.checkValidity();
+    el.setAttribute("aria-invalid", ok ? "false" : "true");
+    if (!ok && !bad) bad = el;
+  });
+  if (bad) { $("#subMsg").textContent = "Fill in the fields marked * (the link must start with https://)."; bad.focus(); $("#subReady").hidden = true; return; }
+  const v = id => $(id).value.trim();
+  const C = CITIES[v("#fCity")];
+  const time = v("#fStart") ? `${v("#fStart")}${v("#fEnd") ? "–" + v("#fEnd") : ""} ${C.tzLabel}` : "TBD";
+  const body = [
+    `**Event:** ${v("#fTitle")}`, `**City:** ${C.name}`, `**Type:** ${v("#fKind")}`,
+    `**Date:** ${v("#fDate")}`, `**Time (local):** ${time}`, `**Host:** ${v("#fHost")}`,
+    `**Venue:** ${v("#fVenue") || "TBD"}`, `**Link:** ${v("#fUrl")}`, `**Registration:** ${v("#fReg")}`,
+    "", `**Notes:**`, v("#fNotes") || "—", "", "_Submitted from the NeurIPS 2026 Safety Week guide._"
+  ].join("\n");
+  const title = `[Event] ${v("#fTitle")} (${C.name}, ${v("#fDate")})`;
+  const p = new URLSearchParams({title, body, labels:"event-submission"});
+  $("#subLink").href = `https://github.com/${REPO}/issues/new?${p}`;
+  $("#subText").value = title + "\n\n" + body;
+  $("#subText").hidden = true;
+  $("#subReady").hidden = false;
+  $("#subMsg").textContent = "Ready. Open it on GitHub to send.";
+});
+$("#subCopy").addEventListener("click", () => {
+  const ta = $("#subText");
+  const fallback = () => { ta.hidden = false; ta.focus(); ta.select(); $("#subMsg").textContent = "Select and copy the text below."; };
+  try { navigator.clipboard.writeText(ta.value).then(() => { $("#subMsg").textContent = "Details copied."; }, fallback); }
+  catch(err) { fallback(); }
+});
+
+window.addEventListener("hashchange", () => { setCity(location.hash.slice(1)); window.scrollTo(0,0); });
+setCity(location.hash.slice(1));
+renderStars();
+setInterval(tick, 30000);
+</script>
+
+</html>
