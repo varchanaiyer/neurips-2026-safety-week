@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Unofficial guide to AI safety workshops, talks, socials and side events at NeurIPS 2026 in Sydney, Atlanta and Paris.">
-<meta property="og:title" content="NeurIPS 2026 Safety Week">
+<meta property="og:title" content="AI Safety at NeurIPS">
 <meta property="og:description" content="AI safety events at NeurIPS 2026 across Sydney, Atlanta and Paris.">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>NeurIPS 2026 Safety Week</title>
+<title>AI Safety at NeurIPS</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
@@ -223,7 +223,7 @@ footer p{margin:4px 0;max-width:80ch}
 
 <header class="top">
   <div class="wrap">
-    <div class="brand">NeurIPS 2026 <span>Safety Week</span></div>
+    <div class="brand">AI Safety at <span>NeurIPS</span></div>
     <nav class="cities" aria-label="City">
       <a href="#sydney" data-c="sydney">Sydney</a>
       <a href="#atlanta" data-c="atlanta">Atlanta</a>
@@ -356,6 +356,7 @@ footer p{margin:4px 0;max-width:80ch}
   <footer>
     <div class="wrap">
       <p>An unofficial community guide to AI safety events, not affiliated with or endorsed by the NeurIPS Foundation or any listed organization.</p>
+      <p>Inspired by the <a href="https://neurips-sydney-2026.netlify.app/" target="_blank" rel="noopener">NeurIPS Sydney 2026 side events &amp; attendee guide</a>.</p>
       <p>Last updated 24 November 2026. Stars are saved in this browser only.</p>
     </div>
   </footer>
@@ -474,6 +475,7 @@ const EVENTS = [
  {c:"sydney",d:"2026-12-08",t:"",l:"Time TBD",title:"Evaluating Long Horizon Agents",k:"side",adj:1,host:"Appen",venue:"Sydney",st:"tbd",note:"Date from the community tracker; not verified.",url:"https://luma.com/whdzlte4"},
  {c:"sydney",d:"2026-12-08",t:"19:00",e:"21:00",title:"Building Multilingual and Multiregional Safety Datasets",k:"social",host:"Tharindu Cyril Weerasooriya, Claire Dennis",venue:"MR C3.2",url:NC+"events/social"},
  {c:"sydney",d:"2026-12-09",t:"09:00",e:"10:00",title:"Satinder Singh: The Better AIngels of our Future",k:"keynote",host:"Google DeepMind / U. Michigan · RL, alignment and reward hacking",venue:"TikTok Entertainment Centre",url:NC+"loc/sydney/eventlistwithbios/Invited%20Talk"},
+ {c:"sydney",d:"2026-12-09",t:"11:45",e:"15:00",title:"Alterra Labs NeurIPS Lunch",k:"side",host:"Alterra Labs · AI safety and alignment for healthcare and life sciences: evals, RL environments, post-training",venue:"About 10 min walk from ICC; address on approval",st:"approval",url:"https://luma.com/fx8xql0n"},
  {c:"sydney",d:"2026-12-09",t:"",l:"Afternoon",title:"AI Safety Afternoon Café: Collabs & Co-Founders",k:"side",host:"Sydney AI Safety Space (SASS) · for people starting safety orgs",venue:"3 Little Queen St, Chippendale",st:"closed",note:"Date from the community tracker.",url:"https://luma.com/lj8rl449"},
  {c:"sydney",d:"2026-12-09",t:"19:00",e:"21:00",title:"Finding Your Path in AI Safety & Security Research",k:"social",host:"Eric Dhan, Patrick Keane",venue:"MR C3.2",url:NC+"social/180832"},
  {c:"sydney",d:"2026-12-10",t:"09:00",e:"10:00",title:"Shannon Vallor: The Knowledge Box: AI and Epistemic Dispossession",k:"keynote",adj:1,host:"University of Edinburgh",venue:"TikTok Entertainment Centre",url:NC+"loc/sydney/eventlistwithbios/Invited%20Talk"},
@@ -716,7 +718,7 @@ $("#copyBtn").addEventListener("click", () => {
   const mine = EVENTS.filter(e => stars.has(e.id)).sort((a,b) => a.c.localeCompare(b.c) || a.d.localeCompare(b.d) || sortKey(a).localeCompare(sortKey(b)));
   const msg = $("#copyMsg"), ta = $("#copyFallback");
   if (!mine.length) { msg.textContent = "Star a few events first."; return; }
-  const text = "My NeurIPS 2026 safety week\n\n" + mine.map(e => {
+  const text = "My AI Safety at NeurIPS 2026 schedule\n\n" + mine.map(e => {
     const C = CITIES[e.c];
     const time = e.t ? `${e.t}${e.e ? "–" + e.e : ""} ${C.tzLabel}` : (e.l || "TBD");
     return `${C.name} · ${fmtDay(e.d)} · ${time}\n${e.title}\n${e.venue}\n${e.url}`;
@@ -746,7 +748,7 @@ $("#subForm").addEventListener("submit", e => {
     `**Event:** ${v("#fTitle")}`, `**City:** ${C.name}`, `**Type:** ${v("#fKind")}`,
     `**Date:** ${v("#fDate")}`, `**Time (local):** ${time}`, `**Host:** ${v("#fHost")}`,
     `**Venue:** ${v("#fVenue") || "TBD"}`, `**Link:** ${v("#fUrl")}`, `**Registration:** ${v("#fReg")}`,
-    "", `**Notes:**`, v("#fNotes") || "—", "", "_Submitted from the NeurIPS 2026 Safety Week guide._"
+    "", `**Notes:**`, v("#fNotes") || "—", "", "_Submitted from the AI Safety at NeurIPS guide._"
   ].join("\n");
   const title = `[Event] ${v("#fTitle")} (${C.name}, ${v("#fDate")})`;
   const p = new URLSearchParams({title, body, labels:"event-submission"});
