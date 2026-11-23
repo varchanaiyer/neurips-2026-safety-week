@@ -148,9 +148,30 @@ section.block{padding-block:40px 6px;scroll-margin-top:110px}
 .route h3{font-size:17px;font-weight:700}
 .route svg{display:block;min-width:560px;width:100%;height:auto;margin-top:8px}
 .route .lbl{fill:var(--ink);font:600 12.5px var(--body)}
-.route .seg{fill:var(--muted);font:500 11px var(--mono)}
+.route .seg{fill:var(--ink);font:500 11px var(--mono)}
+.route .seg.dur{fill:var(--muted)}
 .paybox{margin-top:12px;font-size:14px;color:var(--muted);max-width:75ch}
 .price{font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+/* glance */
+.glance-wrap{overflow-x:auto;margin-top:12px}
+.glance{display:grid;grid-template-columns:88px repeat(8,minmax(44px,1fr));gap:4px;min-width:520px}
+.glance .gh{font:500 11px var(--mono);color:var(--muted);text-align:center;padding-bottom:2px;text-transform:uppercase;letter-spacing:.05em}
+.glance .gh b{display:block;font:700 17px var(--display);color:var(--ink);letter-spacing:0}
+.glance .gc{font:600 13.5px var(--body);display:flex;align-items:center}
+.glance button{border:1px solid var(--line);border-radius:4px;height:44px;font:700 16px var(--display);color:var(--ink);cursor:pointer;background:var(--surface);font-variant-numeric:tabular-nums}
+.glance button:hover{outline:2px solid var(--ink);outline-offset:-1px}
+.glance button.dim{cursor:default;color:var(--muted);font-weight:400;background:transparent;border-style:dashed}
+.glance button.dim:hover{outline:none}
+.glance button.cur{box-shadow:inset 0 -3px 0 var(--ink)}
+.legend{font-size:12.5px;color:var(--muted);margin-top:8px}
+.topics{margin-top:6px}
+.topics .lab{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:2px}
+.chip.t{font-size:12.5px;padding:4px 10px;border-style:dashed}
+.chip.t[aria-pressed="true"]{border-style:solid;background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.tag.topic{background:transparent;border:1px dashed var(--line)}
+.tag.clash{background:var(--bad-bg);color:var(--bad);text-transform:none;letter-spacing:0;font-family:var(--body);font-size:12px}
+.ev .time .mine{color:var(--accent);font-weight:500}
 
 /* submit */
 .secnav .go-submit{background:var(--accent);color:var(--surface)}
@@ -259,6 +280,14 @@ footer p{margin:4px 0;max-width:80ch}
     </div>
   </div>
 
+  <section class="block" id="glance">
+    <div class="wrap">
+      <div class="sechead"><h2>Week at a glance</h2><span class="count">all three cities</span></div>
+      <p class="intro" style="margin-bottom:0">Safety events per day, in each city's local date. Darker means busier. Tap a day to jump to it.</p>
+      <div class="glance-wrap"><div class="glance" id="glanceGrid" role="group" aria-label="Safety events per day by city"></div></div>
+    </div>
+  </section>
+
   <section class="block" id="events">
     <div class="wrap">
       <div class="sechead"><h2>Safety events</h2><span class="count" id="evCount"></span></div>
@@ -272,7 +301,9 @@ footer p{margin:4px 0;max-width:80ch}
         <button class="chip" data-f="starred" aria-pressed="false">★ Starred</button>
         <input class="search" id="q" type="search" placeholder="Search title, host, room" aria-label="Search events">
         <label class="toggle"><input type="checkbox" id="core"> Core safety only</label>
+        <label class="toggle"><input type="checkbox" id="mytime"> Show my time</label>
       </div>
+      <div class="controls topics" id="topicChips" role="group" aria-label="Filter by topic"></div>
       <div class="myweek">
         <span id="starCount">Star events to build your week.</span>
         <button class="btn" id="copyBtn" type="button">Copy my schedule</button>
@@ -312,7 +343,7 @@ footer p{margin:4px 0;max-width:80ch}
   <section class="block" id="submit">
     <div class="wrap">
       <div class="sechead"><h2>Submit a safety event</h2></div>
-      <p class="intro">Hosting or know of an AI safety event during NeurIPS week in any city? Send it in. Submissions open as a GitHub issue on this guide's repository and are reviewed before they're added.</p>
+      <p class="intro">Hosting or know of an AI safety event during NeurIPS week in any city? Send it in. Submissions open as a GitHub issue on this guide's repository. Once you submit, your event is reviewed and approved within 24 hours.</p>
       <form id="subForm" class="subform" novalidate>
         <label>Event name *<input id="fTitle" required maxlength="160" placeholder="AI Safety Breakfast"></label>
         <label>City *<select id="fCity"><option value="sydney">Sydney</option><option value="atlanta">Atlanta</option><option value="paris">Paris</option></select></label>
@@ -332,7 +363,7 @@ footer p{margin:4px 0;max-width:80ch}
         <div class="wide" id="subReady" hidden>
           <a class="btn primary" id="subLink" href="#" target="_blank" rel="noopener">Open on GitHub to submit ↗</a>
           <button class="btn" id="subCopy" type="button">Copy details instead</button>
-          <p class="intro" style="margin:8px 0 0">Needs a free GitHub account. No account? Copy the details and send them to the guide's maintainer.</p>
+          <p class="intro" style="margin:8px 0 0">After you submit on GitHub, your event will be approved within 24 hours. Needs a free GitHub account. No account? Copy the details and send them to the guide's maintainer.</p>
           <textarea id="subText" hidden readonly aria-label="Submission details"></textarea>
         </div>
       </form>
@@ -535,6 +566,17 @@ const ORGS = [
 ];
 const MISSING = ["UK AI Security Institute","US CAISI","METR","Apollo Research","Redwood Research","Center for AI Safety","ARC","Goodfire","Transluce","EleutherAI","Epoch AI","CHAI","Constellation","Cooperative AI Foundation","Coefficient Giving","Longview","SFF"];
 
+const OFF = {sydney:11, atlanta:-5, paris:1};
+const TOPICS = [
+  ["Interpretability", /interpret/i],
+  ["Evaluation", /evaluat|\beval|judge|grader|red team|verif|competition/i],
+  ["Agents", /agent/i],
+  ["Alignment", /align|reward hacking|aingels/i],
+  ["Security & privacy", /secur|privacy|guardrail|cyber|formal guarantee/i],
+  ["Governance", /governance|policy|ai act|peace|ethic|data center|academia|epistemic|pause|economics|for good/i],
+  ["Child safety", /child/i],
+  ["Community", /networking|your path|silos|café|co-founder|lunch|datasets|dinner|drinks/i]
+];
 const KIND = {workshop:"Workshop",competition:"Competition",tutorial:"Tutorial",keynote:"Keynote",expo:"Expo",social:"Official social",side:"Side event"};
 const GROUP = {workshop:"workshop",competition:"workshop",tutorial:"talk",keynote:"talk",expo:"talk",social:"social",side:"side"};
 const STATUS = {full:["Full · waitlist","bad"],closed:["Registration closed","bad"],approval:["Approval required","warn"],tbd:["Date TBC","warn"]};
@@ -542,13 +584,13 @@ const STATUS = {full:["Full · waitlist","bad"],closed:["Registration closed","b
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
 const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g,"-").slice(0,48);
-EVENTS.forEach(ev => ev.id = ev.c + "-" + ev.d.slice(8) + "-" + slug(ev.title));
+EVENTS.forEach(ev => { ev.id = ev.c + "-" + ev.d.slice(8) + "-" + slug(ev.title); ev.topics = TOPICS.filter(([, r]) => r.test(ev.title + " " + ev.host)).map(t => t[0]); });
 
 let stars = new Set();
 try { stars = new Set(JSON.parse(localStorage.getItem("nsw-stars") || "[]")); } catch(e) {}
 const saveStars = () => { try { localStorage.setItem("nsw-stars", JSON.stringify([...stars])); } catch(e) {} };
 
-let city = "sydney", filter = "all", query = "", coreOnly = false;
+let city = "sydney", filter = "all", query = "", coreOnly = false, topic = "", myTime = false, pendingDay = null;
 try { const f = localStorage.getItem("nsw-filter"); if (f) filter = f; } catch(e) {}
 
 const sortKey = ev => ev.t || ({Afternoon:"13:00",Evening:"18:00"}[ev.l] || "00:00");
@@ -573,10 +615,51 @@ function calLink(ev){
 function visible(ev){
   if (ev.c !== city) return false;
   if (coreOnly && ev.adj) return false;
+  if (topic && !ev.topics.includes(topic)) return false;
   if (filter === "starred" && !stars.has(ev.id)) return false;
   if (!["all","starred"].includes(filter) && GROUP[ev.k] !== filter) return false;
   if (query && !(ev.title + " " + ev.host + " " + ev.venue).toLowerCase().includes(query)) return false;
   return true;
+}
+
+const plusHour = t => String(+t.slice(0,2) + 1).padStart(2,"0") + t.slice(2);
+function clashes(ev){
+  if (!stars.has(ev.id) || !ev.t) return [];
+  const end = ev.e || plusHour(ev.t);
+  return EVENTS.filter(o => o !== ev && stars.has(o.id) && o.c === ev.c && o.d === ev.d && o.t && o.t < end && ev.t < (o.e || plusHour(o.t)));
+}
+function viewerTime(ev){
+  const [y,m,d] = ev.d.split("-").map(Number), [h,mi] = ev.t.split(":").map(Number);
+  const t = new Date(Date.UTC(y, m-1, d, h - OFF[ev.c], mi));
+  return new Intl.DateTimeFormat(undefined, {weekday:"short", hour:"2-digit", minute:"2-digit"}).format(t);
+}
+const GDAYS = ["2026-12-06","2026-12-07","2026-12-08","2026-12-09","2026-12-10","2026-12-11","2026-12-12","2026-12-13"];
+function renderGlance(){
+  const head = `<div></div>` + GDAYS.map(d => { const dt = new Date(d + "T12:00:00Z"); return `<div class="gh">${dt.toLocaleDateString("en-GB",{weekday:"short",timeZone:"UTC"})}<b>${dt.getUTCDate()}</b></div>`; }).join("");
+  const rows = Object.entries(CITIES).map(([c, C]) => {
+    const max = Math.max(...GDAYS.map(d => EVENTS.filter(e => e.c === c && e.d === d).length));
+    const cells = GDAYS.map(d => {
+      const n = EVENTS.filter(e => e.c === c && e.d === d).length;
+      const inRange = d >= C.start && d <= C.end;
+      if (!inRange) return `<button class="dim" disabled aria-label="${C.name} not running on ${d}">·</button>`;
+      const pct = n ? 18 + Math.round(62 * n / max) : 4;
+      const accent = {sydney:"--syd", atlanta:"--atl", paris:"--par"}[c];
+      return `<button data-gc="${c}" data-gd="${d}" class="${c === city ? "cur" : ""}" style="background:color-mix(in srgb, var(${accent}) ${pct}%, var(--surface));${pct > 55 ? "color:var(--surface)" : ""}" aria-label="${n} safety events in ${C.name} on ${fmtDay(d)}">${n || "–"}</button>`;
+    }).join("");
+    return `<div class="gc">${C.name}</div>${cells}`;
+  }).join("");
+  $("#glanceGrid").innerHTML = head + rows;
+}
+function renderTopics(){
+  const here = EVENTS.filter(e => e.c === city);
+  $("#topicChips").innerHTML = `<span class="lab">Topics</span>` + TOPICS.map(([t]) => {
+    const n = here.filter(e => e.topics.includes(t)).length;
+    return n ? `<button class="chip t" data-t="${esc(t)}" aria-pressed="${topic === t}">${esc(t)} ${n}</button>` : "";
+  }).join("");
+}
+function scrollToDay(d){
+  const el = document.getElementById("day-" + d) || document.getElementById("events");
+  el.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block:"start"});
 }
 
 function renderAgenda(){
@@ -592,7 +675,7 @@ function renderAgenda(){
   const days = {};
   list.forEach(ev => (days[ev.d] ||= []).push(ev));
   $("#agenda").innerHTML = Object.entries(days).map(([d, evs]) => `
-    <div class="day">
+    <div class="day" id="day-${d}">
       <div class="dayhead"><span class="dnum">${+d.slice(8)}</span><h3>${esc(fmtDay(d))}</h3><span class="phase">${esc(C.phases[d] || "")}</span></div>
       ${evs.map(evHTML).join("")}
     </div>`).join("");
@@ -602,8 +685,9 @@ function evHTML(ev){
   const time = ev.t ? `${ev.t}${ev.e ? "–" + ev.e : ""}` : esc(ev.l || "TBD");
   const st = STATUS[ev.st];
   const on = stars.has(ev.id);
+  const cl = clashes(ev);
   return `<article class="ev${ev.adj ? " adjacent" : ""}">
-    <div class="time">${time}<small>${CITIES[ev.c].tzLabel}</small></div>
+    <div class="time">${time}<small>${CITIES[ev.c].tzLabel}</small>${myTime && ev.t ? `<small class="mine">You: ${esc(viewerTime(ev))}</small>` : ""}</div>
     <div style="min-width:0">
       <h4><a href="${esc(ev.url)}" target="_blank" rel="noopener">${esc(ev.title)}</a></h4>
       <div class="meta">${ev.host ? esc(ev.host) + " · " : ""}${esc(ev.venue)}</div>
@@ -612,6 +696,8 @@ function evHTML(ev){
         ${ev.k !== "side" ? `<span class="tag">On the official program</span>` : ""}
         ${st ? `<span class="tag ${st[1]}">${st[0]}</span>` : ""}
         ${ev.adj ? `<span class="tag">Safety-adjacent</span>` : ""}
+        ${ev.topics.map(t => `<span class="tag topic">${esc(t)}</span>`).join("")}
+        ${cl.length ? `<span class="tag clash">Clashes with ${esc(cl.map(o => o.title).join("; "))}</span>` : ""}
       </div>
       ${ev.note ? `<div class="note">Unconfirmed: ${esc(ev.note)}</div>` : ""}
     </div>
@@ -640,16 +726,19 @@ function routeSVG(r){
   const xs = r.stops.map((_, i) => pad + i*step);
   const segs = r.segs.map((s, i) => {
     const walk = /^Walk/.test(s);
-    return `<line x1="${xs[i]}" y1="40" x2="${xs[i+1]}" y2="40" stroke="var(--accent)" stroke-width="${walk ? 3 : 7}" ${walk ? 'stroke-dasharray="4 6" stroke-linecap="round"' : 'stroke-linecap="round"'}/>
-      <text class="seg" x="${(xs[i]+xs[i+1])/2}" y="22" text-anchor="middle">${esc(s)}</text>`;
+    const [mode, dur] = s.split(" · ");
+    const mx = (xs[i]+xs[i+1])/2;
+    return `<line x1="${xs[i]}" y1="46" x2="${xs[i+1]}" y2="46" stroke="var(--accent)" stroke-width="${walk ? 3 : 7}" ${walk ? 'stroke-dasharray="4 6" stroke-linecap="round"' : 'stroke-linecap="round"'}/>
+      <text class="seg" x="${mx}" y="14" text-anchor="middle">${esc(mode)}</text>
+      ${dur ? `<text class="seg dur" x="${mx}" y="29" text-anchor="middle">${esc(dur)}</text>` : ""}`;
   }).join("");
   const stops = r.stops.map((s, i) => {
     const last = i === n - 1;
-    return `<circle cx="${xs[i]}" cy="40" r="${last ? 11 : 8}" fill="${last ? "var(--accent)" : "var(--surface)"}" stroke="var(--accent)" stroke-width="3"/>
-      <text class="lbl" x="${xs[i]}" y="74" text-anchor="middle">${esc(s)}</text>`;
+    return `<circle cx="${xs[i]}" cy="46" r="${last ? 11 : 8}" fill="${last ? "var(--accent)" : "var(--surface)"}" stroke="var(--accent)" stroke-width="3"/>
+      <text class="lbl" x="${xs[i]}" y="80" text-anchor="middle">${esc(s)}</text>`;
   }).join("");
   const list = `<ol class="route-list">${r.stops.map((s, i) => `<li><b>${esc(s)}</b>${r.segs[i] ? `<span>${esc(r.segs[i])}</span>` : ""}</li>`).join("")}</ol>`;
-  return `<svg viewBox="0 0 ${W} 90" role="img" aria-label="Route: ${esc(r.stops.join(" to "))}">${segs}${stops}</svg>${list}`;
+  return `<svg viewBox="0 0 ${W} 96" role="img" aria-label="Route: ${esc(r.stops.join(" to "))}">${segs}${stops}</svg>${list}`;
 }
 
 function renderGuide(){
@@ -690,24 +779,38 @@ function setCity(c){
   $("#sVenue").textContent = C.venue;
   $("#sNowLabel").textContent = `${C.name} now`;
   $("#tzNote").textContent = C.tz_note;
-  tick(); renderAgenda(); renderOrgs(); renderGuide();
+  if (topic && !EVENTS.some(e => e.c === c && e.topics.includes(topic))) topic = "";
+  tick(); renderTopics(); renderGlance(); renderAgenda(); renderOrgs(); renderGuide();
 }
 
 document.querySelectorAll("[data-go]").forEach(b => b.addEventListener("click", () => {
   const el = document.getElementById(b.dataset.go);
   if (el) el.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block:"start"});
 }));
-document.querySelectorAll(".chip").forEach(b => {
+document.querySelectorAll(".chip[data-f]").forEach(b => {
   b.setAttribute("aria-pressed", b.dataset.f === filter);
   b.addEventListener("click", () => {
     filter = b.dataset.f;
     try { localStorage.setItem("nsw-filter", filter); } catch(e) {}
-    document.querySelectorAll(".chip").forEach(x => x.setAttribute("aria-pressed", x === b));
+    document.querySelectorAll(".chip[data-f]").forEach(x => x.setAttribute("aria-pressed", x === b));
     renderAgenda();
   });
 });
 $("#q").addEventListener("input", e => { query = e.target.value.trim().toLowerCase(); renderAgenda(); });
 $("#core").addEventListener("change", e => { coreOnly = e.target.checked; renderAgenda(); });
+$("#mytime").addEventListener("change", e => { myTime = e.target.checked; renderAgenda(); });
+$("#topicChips").addEventListener("click", e => {
+  const b = e.target.closest("[data-t]"); if (!b) return;
+  topic = topic === b.dataset.t ? "" : b.dataset.t;
+  renderTopics(); renderAgenda();
+});
+$("#glanceGrid").addEventListener("click", e => {
+  const b = e.target.closest("[data-gc]"); if (!b) return;
+  filter = "all"; topic = ""; query = ""; $("#q").value = "";
+  document.querySelectorAll(".chip[data-f]").forEach(x => x.setAttribute("aria-pressed", x.dataset.f === "all"));
+  if (b.dataset.gc !== city) { pendingDay = b.dataset.gd; location.hash = b.dataset.gc; }
+  else { renderTopics(); renderAgenda(); scrollToDay(b.dataset.gd); }
+});
 $("#agenda").addEventListener("click", e => {
   const b = e.target.closest(".star"); if (!b) return;
   const id = b.dataset.id;
@@ -756,7 +859,7 @@ $("#subForm").addEventListener("submit", e => {
   $("#subText").value = title + "\n\n" + body;
   $("#subText").hidden = true;
   $("#subReady").hidden = false;
-  $("#subMsg").textContent = "Ready. Open it on GitHub to send.";
+  $("#subMsg").textContent = "Ready. Open it on GitHub and press Submit. Approved events appear within 24 hours.";
 });
 $("#subCopy").addEventListener("click", () => {
   const ta = $("#subText");
@@ -765,7 +868,7 @@ $("#subCopy").addEventListener("click", () => {
   catch(err) { fallback(); }
 });
 
-window.addEventListener("hashchange", () => { setCity(location.hash.slice(1)); window.scrollTo(0,0); });
+window.addEventListener("hashchange", () => { setCity(location.hash.slice(1)); if (pendingDay) { const d = pendingDay; pendingDay = null; scrollToDay(d); } else window.scrollTo(0,0); });
 setCity(location.hash.slice(1));
 renderStars();
 setInterval(tick, 30000);
