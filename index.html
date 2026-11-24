@@ -175,16 +175,6 @@ section.block{padding-block:40px 6px;scroll-margin-top:110px}
 
 /* people */
 .subh{font-size:18px;margin-top:26px}
-.scard h4{margin:0;font-size:15.5px;font-weight:600}
-.scard p{margin:6px 0 10px;font-size:13.5px;color:var(--muted)}
-.sbtns{display:flex;flex-wrap:wrap;gap:6px}
-.sbtns a{font:600 12.5px var(--body);text-decoration:none;padding:6px 10px;border-radius:4px;border:1px solid var(--line);color:var(--ink);background:var(--bg)}
-.sbtns a:hover{border-color:var(--accent);color:var(--accent)}
-.sbtns a.x{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.orgsearch{display:flex;flex-wrap:wrap;gap:6px}
-.orgsearch a{font:500 13px var(--body);text-decoration:none;color:var(--ink);border:1px solid var(--line);background:var(--surface);padding:5px 10px;border-radius:999px}
-.orgsearch a:hover{border-color:var(--accent);color:var(--accent)}
-.orgsearch a span{color:var(--muted);font-size:11px;margin-left:4px}
 .pcard .who{font-weight:600}
 .pcard .org{color:var(--accent);font-size:13.5px;font-weight:600}
 .pcard p{margin:6px 0 0;font-size:13.5px}
@@ -275,7 +265,7 @@ footer p{margin:4px 0;max-width:80ch}
     <nav class="secnav" aria-label="Sections">
       <button data-go="events" id="navEvents">Safety events</button>
       <button data-go="orgs">Who's there</button>
-      <button data-go="people">Who's posting</button>
+      <button data-go="people">Attending or hiring</button>
       <button data-go="around">Getting around</button>
       <button data-go="tips">Tips</button>
       <button data-go="submit" class="go-submit">+ Submit an event</button>
@@ -349,24 +339,18 @@ footer p{margin:4px 0;max-width:80ch}
 
   <section class="block" id="people">
     <div class="wrap">
-      <div class="sechead"><h2>Who's posting</h2><span class="count" id="peopleCount"></span></div>
-      <p class="intro" id="peopleIntro"></p>
-      <div class="grid" id="searchCards"></div>
-      <h3 class="subh">Search by organization</h3>
-      <p class="intro" style="margin-bottom:8px">Opens the latest X posts that mention the organization and NeurIPS.</p>
-      <div class="orgsearch" id="orgSearch"></div>
-      <h3 class="subh">People and teams</h3>
-      <p class="intro" style="margin-bottom:8px">Public posts from people at AI safety organizations who are attending or hiring, plus people who added themselves. Each entry links to its source.</p>
+      <div class="sechead"><h2>Attending or hiring</h2><span class="count" id="peopleCount"></span></div>
+      <p class="intro">People from AI safety organizations who will be at NeurIPS or are hiring. Add yourself below; listings are approved within 24 hours.</p>
       <div class="grid" id="peopleList"></div>
       <details class="addme" id="addMe">
-        <summary>I'm attending or hiring for an AI safety org</summary>
+        <summary>Add yourself: I'm attending or hiring for an AI safety org</summary>
         <form id="pForm" class="subform" novalidate>
           <label>Your name or handle *<input id="pName" required maxlength="100" placeholder="Ada Lovelace / @ada"></label>
           <label>Organization *<input id="pOrg" required maxlength="120" placeholder="Your lab or team"></label>
           <label>City *<select id="pCity"><option value="sydney">Sydney</option><option value="atlanta">Atlanta</option><option value="paris">Paris</option></select></label>
           <label>I am<select id="pKind"><option>Attending</option><option>Hiring</option><option>Attending and hiring</option></select></label>
           <label>Roles or careers link<input id="pJobs" type="url" placeholder="https://…/careers"></label>
-          <label>Your X, LinkedIn or Bluesky *<input id="pLink" type="url" required placeholder="https://x.com/…"></label>
+          <label>Profile or website link *<input id="pLink" type="url" required placeholder="https://…"></label>
           <label class="wide">What you'd like to talk about<textarea id="pNote" rows="2" maxlength="400" placeholder="Interpretability, evals, open roles on our safety team…"></textarea></label>
           <div class="wide subacts">
             <button class="btn primary" type="submit">Prepare listing</button>
@@ -632,20 +616,7 @@ const TOPICS = [
   ["Child safety", /child/i],
   ["Community", /networking|your path|silos|café|co-founder|lunch|datasets|dinner|drinks/i]
 ];
-const XS = q => "https://x.com/search?q=" + encodeURIComponent(q) + "&f=live";
-const BS = q => "https://bsky.app/search?q=" + encodeURIComponent(q);
-const LI = q => "https://www.linkedin.com/search/results/content/?keywords=" + encodeURIComponent(q) + "&sortBy=%22date_posted%22";
-const SAFE = '("AI safety" OR alignment OR interpretability OR evals OR "red teaming")';
-const SEARCHES = C => [
-  {h:`Heading to NeurIPS ${C.name}`, d:`People posting about AI safety work at the ${C.name} site.`,
-   x:`(NeurIPS OR #NeurIPS2026) ${C.name} ${SAFE}`, b:`NeurIPS ${C.name} AI safety`, l:`NeurIPS ${C.name} AI safety`},
-  {h:"Hiring for safety teams", d:"Recruiting posts that mention NeurIPS and safety, alignment or interpretability roles. Any city.",
-   x:`(NeurIPS OR #NeurIPS2026) (hiring OR "we're hiring" OR recruiting OR "open roles") ("AI safety" OR alignment OR interpretability OR "safety team")`, b:"NeurIPS hiring AI safety", l:"NeurIPS hiring AI safety"},
-  {h:"Open to meet", d:`Safety folks in ${C.name} offering coffee, DMs or a booth visit.`,
-   x:`(NeurIPS OR #NeurIPS2026) ${C.name} ("AI safety" OR alignment) ("DM me" OR "say hi" OR coffee OR "come find us" OR booth)`, b:`NeurIPS ${C.name} alignment coffee`, l:`NeurIPS ${C.name} alignment meet`}
-];
-const ORG_SEARCH = ["Anthropic","OpenAI","Google DeepMind","AI Security Institute","METR","Apollo Research","FAR.AI","Redwood Research","MATS","Center for AI Safety","Goodfire","Transluce","EleutherAI","Epoch AI","LawZero","Gradient Institute","Gray Swan","CeSIA"];
-// Public posts found by research plus approved self-listings. Fields: c (city), who, org, kind, note, url, date, src ("found" | "listed")
+// Approved self-listings. Fields: c (city), who, org, kind, note, url (profile), jobs, date
 const PEOPLE = [];
 
 const KIND = {workshop:"Workshop",competition:"Competition",tutorial:"Tutorial",keynote:"Keynote",expo:"Expo",social:"Official social",side:"Side event"};
@@ -824,18 +795,14 @@ function renderGuide(){
 
 function renderPeople(){
   const C = CITIES[city];
-  $("#peopleIntro").textContent = `Live searches open X, Bluesky or LinkedIn with the newest posts first, so they stay current. The page can't embed social feeds, so each button opens a new tab.`;
-  $("#searchCards").innerHTML = SEARCHES(C).map(s => `<div class="card scard"><h4>${esc(s.h)}</h4><p>${esc(s.d)}</p>
-    <div class="sbtns"><a class="x" href="${esc(XS(s.x))}" target="_blank" rel="noopener">Search X ↗</a><a href="${esc(BS(s.b))}" target="_blank" rel="noopener">Bluesky ↗</a><a href="${esc(LI(s.l))}" target="_blank" rel="noopener">LinkedIn ↗</a></div></div>`).join("");
-  $("#orgSearch").innerHTML = ORG_SEARCH.map(o => `<a href="${esc(XS(`(NeurIPS OR #NeurIPS2026) "${o}"`))}" target="_blank" rel="noopener">${esc(o)}<span>↗</span></a>`).join("");
   const list = PEOPLE.filter(p => p.c === city || p.c === "any");
   $("#peopleCount").textContent = list.length ? `${list.length} listed for ${C.name}` : "";
   $("#peopleList").innerHTML = list.length ? list.map(p => `<div class="card pcard">
       <div class="who">${esc(p.who)}</div><div class="org">${esc(p.org)}</div>
       <div class="tags"><span class="tag kind">${esc(p.kind)}</span>${p.c === "any" ? `<span class="tag">City not stated</span>` : ""}</div>
       ${p.note ? `<p>${esc(p.note)}</p>` : ""}
-      <div class="src"><a href="${esc(p.url)}" target="_blank" rel="noopener">${p.src === "listed" ? "Profile" : "Source post"} ↗</a>${p.jobs ? `<a href="${esc(p.jobs)}" target="_blank" rel="noopener">Open roles ↗</a>` : ""}<span>${esc(p.date || "")}</span></div>
-    </div>`).join("") : `<p class="empty" style="grid-column:1/-1;padding:8px 0">No public posts found for ${esc(C.name)} yet as of 24 Nov. Use the live searches above, or add yourself below.</p>`;
+      <div class="src"><a href="${esc(p.url)}" target="_blank" rel="noopener">Profile ↗</a>${p.jobs ? `<a href="${esc(p.jobs)}" target="_blank" rel="noopener">Open roles ↗</a>` : ""}<span>${esc(p.date || "")}</span></div>
+    </div>`).join("") : `<p class="empty" style="grid-column:1/-1;padding:8px 0">No one listed for ${esc(C.name)} yet. Be the first: use the form below.</p>`;
   if (!pTouched) $("#pCity").value = city;
 }
 
