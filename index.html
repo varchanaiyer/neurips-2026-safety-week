@@ -329,7 +329,7 @@ footer p{margin:4px 0;max-width:80ch}
   <section class="block" id="orgs">
     <div class="wrap">
       <div class="sechead"><h2>Who's there</h2><span class="count" id="orgCount"></span></div>
-      <p class="intro">Organizations confirmed from the official program and event pages. The NeurIPS sponsor and exhibitor list could not be read, so booth presence is not covered.</p>
+      <p class="intro">Organizations confirmed from the official program, the NeurIPS sponsor list and event pages. The sponsor list is the same for all three sites, so sponsors appear under every city; booth locations are not published. No organization has publicly announced recruiting at NeurIPS 2026 yet.</p>
       <div class="grid" id="orgList"></div>
       <h3 style="font-size:18px;margin-top:28px">Nothing announced yet</h3>
       <p class="intro" style="margin-bottom:0">No NeurIPS 2026 activity found as of 24 Nov for these groups, many of which hosted events in 2025. Lab dinners and socials usually surface in the final one to two weeks.</p>
@@ -545,7 +545,7 @@ const EVENTS = [
  {c:"sydney",d:"2026-12-08",t:"",l:"Time TBD",title:"Evaluating Long Horizon Agents",k:"side",adj:1,host:"Appen",venue:"Sydney",st:"tbd",note:"Date from the community tracker; not verified.",url:"https://luma.com/whdzlte4"},
  {c:"sydney",d:"2026-12-08",t:"19:00",e:"21:00",title:"Building Multilingual and Multiregional Safety Datasets",k:"social",host:"Tharindu Cyril Weerasooriya, Claire Dennis",venue:"MR C3.2",url:NC+"events/social"},
  {c:"sydney",d:"2026-12-09",t:"09:00",e:"10:00",title:"Satinder Singh: The Better AIngels of our Future",k:"keynote",host:"Google DeepMind / U. Michigan · RL, alignment and reward hacking",venue:"TikTok Entertainment Centre",url:NC+"loc/sydney/eventlistwithbios/Invited%20Talk"},
- {c:"sydney",d:"2026-12-09",t:"11:45",e:"15:00",title:"Alterra Labs NeurIPS Lunch",k:"side",host:"Alterra Labs · AI safety and alignment for healthcare and life sciences: evals, RL environments, post-training",venue:"About 10 min walk from ICC; address on approval",st:"approval",url:"https://luma.com/fx8xql0n"},
+ {c:"sydney",d:"2026-12-09",t:"11:45",e:"15:00",title:"Alterra Labs NeurIPS Lunch",k:"side",host:"Alterra Labs · AI safety and alignment for healthcare and life sciences: evals, RL environments, post-training",venue:"About 10 min walk from ICC; address on approval",st:"approval",note:"The community tracker lists this as a dinner; the Luma page says lunch at these times.",url:"https://luma.com/fx8xql0n"},
  {c:"sydney",d:"2026-12-09",t:"",l:"Afternoon",title:"AI Safety Afternoon Café: Collabs & Co-Founders",k:"side",host:"Sydney AI Safety Space (SASS) · for people starting safety orgs",venue:"3 Little Queen St, Chippendale",st:"closed",note:"Date from the community tracker.",url:"https://luma.com/lj8rl449"},
  {c:"sydney",d:"2026-12-09",t:"19:00",e:"21:00",title:"Finding Your Path in AI Safety & Security Research",k:"social",host:"Eric Dhan, Patrick Keane",venue:"MR C3.2",url:NC+"social/180832"},
  {c:"sydney",d:"2026-12-10",t:"09:00",e:"10:00",title:"Shannon Vallor: The Knowledge Box: AI and Epistemic Dispossession",k:"keynote",adj:1,host:"University of Edinburgh",venue:"TikTok Entertainment Centre",url:NC+"loc/sydney/eventlistwithbios/Invited%20Talk"},
@@ -564,6 +564,7 @@ const EVENTS = [
  {c:"atlanta",d:"2026-12-09",t:"11:00",e:"14:00",title:"Towards Trustworthy Agentic AI: Interpretability, Safety, and Steering",k:"tutorial",host:"Anshuman Chhabra, Muhao Chen, Ben Zhou",venue:"C113–114",url:NC+"loc/atlanta/events/tutorial"},
  {c:"atlanta",d:"2026-12-10",t:"17:00",e:"19:00",title:"Can We Trust the Grader? Drinks on Evals and Expert Judgment",k:"side",adj:1,host:"GLG Frontier",venue:"Park Bar, 150 Walton St NW",st:"approval",note:"Date from the community tracker.",url:"https://luma.com/7bj9cpmq"},
  {c:"atlanta",d:"2026-12-10",t:"19:00",e:"21:00",title:"Breaking Silos in AI Safety: Connecting Communities Across Domains",k:"social",host:"Chhavi Yadav · cybersecurity, biosecurity, child safety, agents and policy",venue:"Room C205, GWCC",note:"neurips.cc lists Fri 11 Dec, 11 AM–1 PM AEDT. Converted to Atlanta time.",url:NC+"social/180839"},
+ {c:"atlanta",d:"2026-12-11",t:"18:00",e:"21:00",title:"Trust at Scale: Private Dinner & Expert Panel",k:"side",host:"AI Circle × Alice · red teaming, guardrails, evals, agent security",venue:"Atlanta; address on approval",st:"approval",note:"Date from the community tracker; the Luma page shows no date.",url:"https://luma.com/ai-9yem"},
  {c:"atlanta",d:"2026-12-11",t:"09:00",title:"Sasha Luccioni: Power to the People? Why AI Data Centers Face Growing Resistance",k:"keynote",adj:1,host:"Sustainable AI Group",venue:"Hall C3",url:NC+"loc/atlanta/eventlistwithbios/Invited%20Talk"},
  {c:"atlanta",d:"2026-12-12",t:"08:00",e:"17:00",title:"Child Safety in AI",k:"workshop",host:"Muhamed, Portnoff, Smith, Strait, Suriyakumar, Wilson, Wilson",venue:"C211–213",url:"https://childsafety-ai.github.io/"},
  {c:"atlanta",d:"2026-12-12",t:"08:00",e:"17:00",title:"Can We Trust the Judge?",k:"workshop",host:"Koshal et al. · LLM-as-judge evaluation",venue:"C205",url:NC+"loc/atlanta/events/workshop"},
@@ -577,17 +578,16 @@ const EVENTS = [
  {c:"paris",d:"2026-12-11",t:"18:00",e:"21:00",title:"Safety by Design: Private Dinner & Expert Panel",k:"side",host:"AI Circle × Alice (formerly ActiveFence) · EU AI Act and agent risks",venue:"Ternes area; address on approval",st:"approval",url:"https://luma.com/ai-2xao"},
  {c:"paris",d:"2026-12-12",t:"08:30",e:"18:30",title:"Trustworthy AI for Good (AI4GOOD)",k:"workshop",host:"Mihalcea, Tambe, Schroeder de Witt, Zhijing Jin et al.",venue:"Room 252",url:NC+"loc/paris/events/workshop"},
  {c:"paris",d:"2026-12-12",t:"08:30",e:"18:30",title:"AI for Peace",k:"workshop",host:"Garcia, Kalantidis et al.",venue:"Room 243",url:"https://aiforpeaceworkshop.github.io/"},
- {c:"paris",d:"2026-12-12",t:"08:30",e:"18:30",title:"Foundations of LLM Post-Training in Changing Environments",k:"workshop",host:"ELLIS Units Paris & Oxford · brings in safety researchers",venue:"Palais des Congrès",url:"https://ellis.eu/events/neurips-2026-workshop-foundations-of-llm-post-training-in-changing-environments"},
- {c:"paris",d:"2026-12-13",t:"08:30",e:"18:30",title:"Foundations of Language Model Security",k:"workshop",host:"Zverev, Pintor, Cretu et al.",venue:"Room 253",url:NC+"loc/paris/events/workshop"},
+ {c:"paris",d:"2026-12-12",t:"08:30",e:"18:30",title:"Foundations of LLM Post-Training in Changing Environments",k:"workshop",host:"ELLIS Units Paris & Oxford · brings in safety researchers",venue:"Room 251",url:"https://ellis.eu/events/neurips-2026-workshop-foundations-of-llm-post-training-in-changing-environments"},
+ {c:"paris",d:"2026-12-13",t:"08:30",e:"18:30",title:"Foundations of Language Model Security",k:"workshop",host:"Keynotes incl. Christian Schroeder de Witt, Somesh Jha, Reza Shokri · demos by Lakera AI, Sondera",venue:"Room 253",url:"https://flmsec.github.io/"},
  {c:"paris",d:"2026-12-13",t:"08:30",e:"18:30",title:"PALM: Personalized, Aligned, Long-Term Memory",k:"workshop",host:"Fritz, Oh, Abdelnabi et al.",venue:"Room 351",url:NC+"loc/paris/events/workshop"},
  {c:"paris",d:"2026-12-13",t:"08:30",e:"18:30",title:"Privacy in the Era of Large Opaque Models",k:"workshop",adj:1,host:"Boenisch, Dziedzic et al.",venue:"Room 243",url:NC+"loc/paris/events/workshop"},
  {c:"paris",d:"2026-12-13",t:"08:30",e:"18:30",title:"E-Values: auditing LLMs",k:"workshop",adj:1,host:"",venue:"Palais des Congrès",url:NC+"loc/paris/events/workshop"}
 ];
 
 const ORGS = [
- {c:"sydney",n:"MATS Research",ty:"Safety talent program",r:"Expo talk and expo workshop on 6 Dec. Expo slots go to Diamond and Platinum exhibitors, so very likely a top-tier exhibitor.",cf:"Confirmed",u:NC+"loc/sydney/events/expo-2026"},
- {c:"sydney",n:"Gradient Institute",ty:"Australian responsible-AI nonprofit",r:"Hosts the Frontier AI Evaluation and Red Teaming panel.",cf:"Confirmed",u:"https://luma.com/h88d5x3l"},
- {c:"sydney",n:"FAR.AI",ty:"Safety research nonprofit",r:"Co-hosts the Gradient panel. No co-located Alignment Workshop this year.",cf:"Confirmed",u:"https://far.ai/events"},
+  {c:"sydney",n:"Gradient Institute",ty:"Australian responsible-AI nonprofit",r:"Hosts the Frontier AI Evaluation and Red Teaming panel.",cf:"Confirmed",u:"https://luma.com/h88d5x3l"},
+ {c:"sydney",n:"FAR.AI",ty:"Safety research nonprofit",r:"Co-hosts the Gradient panel; Karl Berzins and Jasper Timm speak. No NeurIPS Alignment Workshop this year.",cf:"Confirmed",u:"https://far.ai/events"},
  {c:"sydney",n:"Australian AI Safety Institute",ty:"Government",r:"Paul Salmon speaks at the Gradient × FAR.AI panel.",cf:"Confirmed",u:"https://luma.com/h88d5x3l"},
  {c:"sydney",n:"Sydney AI Safety Space",ty:"Local safety community",r:"Hosts the Networking Night and the Collabs & Co-Founders café.",cf:"Confirmed",u:"https://luma.com/qw32xqfa"},
  {c:"sydney",n:"PauseAI Australia",ty:"Advocacy",r:"Planned presence outside a Sydney conference location. Day not set.",cf:"Confirmed",u:"https://luma.com/6ridtv1g"},
@@ -598,11 +598,25 @@ const ORGS = [
  {c:"sydney",n:"Leverhulme CFI, Cambridge",ty:"Academic",r:"José Hernández-Orallo's keynote on AI evaluation and red lines.",cf:"Confirmed",u:NC+"loc/sydney/eventlistwithbios/Invited%20Talk"},
  {c:"atlanta",n:"GLG Frontier",ty:"Evals industry",r:"Hosts the Can We Trust the Grader? evals drinks.",cf:"Confirmed",u:"https://luma.com/7bj9cpmq"},
  {c:"atlanta",n:"Georgia Tech AI Safety Initiative",ty:"Student safety group",r:"Active locally at the satellite chairs' home institution. No NeurIPS event found yet.",cf:"Not announced",u:"https://aisi.dev"},
- {c:"atlanta",n:"Anthropic · OpenAI",ty:"Frontier labs",r:"Individual speaker roles listed by a third-party aggregator only. No hosted safety events found.",cf:"Unverified",u:"https://agentjesse.ai/lists/neurips-2026-companies"},
+ {c:"atlanta",n:"Anthropic (speaker)",ty:"Frontier lab",r:"A third-party list names an Anthropic-affiliated invited speaker at the AI-Native Academia workshop (12 Dec).",cf:"Unverified",u:"https://agentjesse.ai/lists/neurips-2026-companies"},
  {c:"paris",n:"AI Circle × Alice",ty:"Trust & safety industry",r:"Hosts the Safety by Design dinner and panel.",cf:"Confirmed",u:"https://luma.com/ai-2xao"},
  {c:"paris",n:"ELLIS Units Paris & Oxford",ty:"Academic network",r:"Run the LLM post-training workshop that brings in safety researchers.",cf:"Confirmed",u:"https://ellis.eu/events/neurips-2026-workshop-foundations-of-llm-post-training-in-changing-environments"},
  {c:"paris",n:"CeSIA",ty:"French AI safety center",r:"No NeurIPS side event found yet.",cf:"Not announced",u:""}
 ];
+ ORGS.push(
+ {c:"all",n:"Anthropic",ty:"Frontier lab · Diamond sponsor",r:"Top-tier NeurIPS 2026 sponsor. No Anthropic-hosted safety event or booth details announced yet.",cf:"Confirmed",u:"https://neurips.cc/virtual/2026/loc/sydney/sponsor_list"},
+ {c:"all",n:"MATS Research",ty:"Safety talent program · Platinum sponsor",r:"Sponsor listing highlights its research fellowships. Its expo talk and workshop are in Sydney on 6 Dec.",cf:"Confirmed",u:"https://neurips.cc/virtual/2026/loc/sydney/sponsor_list"},
+ {c:"all",n:"LawZero",ty:"Safe-by-design AI lab · Gold sponsor",r:"Yoshua Bengio's nonprofit. Hiring generally; no NeurIPS recruiting announced.",cf:"Confirmed",u:"https://job-boards.greenhouse.io/lawzero"},
+ {c:"all",n:"White Circle",ty:"AI control & safety layer · Gold sponsor",r:"Tools to test and monitor models in production.",cf:"Confirmed",u:"https://neurips.cc/virtual/2026/loc/sydney/sponsor_list"},
+ {c:"all",n:"Gray Swan",ty:"AI security & red teaming · Silver Pavilion",r:"Red-teaming and AI security company.",cf:"Confirmed",u:"https://neurips.cc/virtual/2026/loc/sydney/sponsor_list"},
+ {c:"all",n:"Alice (formerly ActiveFence)",ty:"Trust & safety · Silver Pavilion and Bronze",r:"Also co-hosts the Paris and Atlanta Safety by Design dinners.",cf:"Confirmed",u:"https://neurips.cc/virtual/2026/loc/sydney/sponsor_list"},
+ {c:"all",n:"Mila · ELLIS",ty:"Research institutes · Gold and Bronze sponsors",r:"Mila hosts Bengio's group; ELLIS units run the Paris post-training workshop.",cf:"Confirmed",u:"https://neurips.cc/virtual/2026/loc/sydney/sponsor_list"},
+ {c:"sydney",n:"Scale AI",ty:"Evals & red teaming · Diamond sponsor",r:"Organizes Agents in the Wild (11 Dec) and gives an expo talk on environments and reward-hacking mitigation (6 Dec).",cf:"Confirmed",u:"https://agentwild-workshop.github.io/neurips2026/"},
+ {c:"sydney",n:"Alterra Labs",ty:"AI safety for healthcare and life sciences",r:"Hosts an approval-only NeurIPS lunch on 9 Dec.",cf:"Confirmed",u:"https://luma.com/fx8xql0n"},
+ {c:"atlanta",n:"AI Circle × Alice",ty:"Trust & safety industry",r:"Hosts Trust at Scale, a private dinner and panel on red teaming, guardrails, evals and agent security.",cf:"Confirmed",u:"https://luma.com/ai-9yem"},
+ {c:"paris",n:"Lakera AI · Sondera",ty:"AI security companies",r:"Give demos at the Foundations of Language Model Security workshop on 13 Dec.",cf:"Confirmed",u:"https://flmsec.github.io/"},
+ {c:"paris",n:"Microsoft · Palo Alto Networks",ty:"Industry security research",r:"Co-organize the Foundations of Language Model Security workshop on 13 Dec.",cf:"Confirmed",u:"https://flmsec.github.io/"}
+);
 const MISSING = ["UK AI Security Institute","US CAISI","METR","Apollo Research","Redwood Research","Center for AI Safety","ARC","Goodfire","Transluce","EleutherAI","Epoch AI","CHAI","Constellation","Cooperative AI Foundation","Coefficient Giving","Longview","SFF"];
 
 const OFF = {sydney:11, atlanta:-5, paris:1};
@@ -751,14 +765,14 @@ function evHTML(ev){
 }
 
 function renderOrgs(){
-  const list = ORGS.filter(o => o.c === city);
-  $("#orgCount").textContent = `${list.length} in ${CITIES[city].name}`;
+  const list = [...ORGS.filter(o => o.c === city), ...ORGS.filter(o => o.c === "all")];
+  $("#orgCount").textContent = `${list.length} for ${CITIES[city].name}`;
   const cls = {Confirmed:"ok",Unverified:"warn","Not announced":""};
   $("#orgList").innerHTML = list.map(o => `<div class="card">
     <h4>${o.u ? `<a href="${esc(o.u)}" target="_blank" rel="noopener" style="color:inherit">${esc(o.n)}</a>` : esc(o.n)}</h4>
     <div class="otype">${esc(o.ty)}</div>
     <p>${esc(o.r)}</p>
-    <div class="tags"><span class="tag ${cls[o.cf]}">${esc(o.cf)}</span></div>
+    <div class="tags"><span class="tag ${cls[o.cf]}">${esc(o.cf)}</span>${o.c === "all" ? `<span class="tag">Sponsor · all three sites</span>` : ""}</div>
   </div>`).join("");
   $("#missing").innerHTML = MISSING.map(m => `<span>${esc(m)}</span>`).join("");
 }
