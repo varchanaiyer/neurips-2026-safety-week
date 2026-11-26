@@ -969,7 +969,7 @@ $("#pForm").addEventListener("submit", e => {
   const body = [`**Name / handle:** ${v("#pName")}`, `**Organization:** ${v("#pOrg")}`, `**City:** ${C.name}`, `**Status:** ${v("#pKind")}`,
     `**Profile:** ${v("#pLink")}`, `**Roles / careers:** ${v("#pJobs") || "—"}`, "", "**Wants to talk about:**", v("#pNote") || "—", "",
     "_Self-listing submitted from the AI Safety at NeurIPS guide._"].join("\n");
-  $("#pLinkOut").href = `https://github.com/${REPO}/issues/new?` + new URLSearchParams({title, body, labels:"attendee"});
+  $("#pLinkOut").href = `https://github.com/${REPO}/issues/new?` + new URLSearchParams({template:"attendee.md", title, body, labels:"attendee"});
   $("#pReady").hidden = false;
   $("#pMsg").textContent = "Ready. Open it on GitHub and press Submit.";
 });
@@ -995,7 +995,7 @@ $("#subForm").addEventListener("submit", e => {
     "", `**Notes:**`, v("#fNotes") || "—", "", "_Submitted from the AI Safety at NeurIPS guide._"
   ].join("\n");
   const title = `[Event] ${v("#fTitle")} (${C.name}, ${v("#fDate")})`;
-  const p = new URLSearchParams({title, body, labels:"event-submission"});
+  const p = new URLSearchParams({template:"event-submission.md", title, body, labels:"event-submission"});
   $("#subLink").href = `https://github.com/${REPO}/issues/new?${p}`;
   $("#subText").value = title + "\n\n" + body;
   $("#subText").hidden = true;
