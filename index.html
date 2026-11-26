@@ -2,6 +2,45 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<!-- Consent: analytics only after the visitor accepts -->
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
+(function(){
+  var GA='G-VK7S5LFW50',KEY='aisn-consent',loaded=false;
+  function load(){ if(loaded) return; loaded=true;
+    gtag('consent','update',{analytics_storage:'granted'});
+    var j=document.createElement('script');j.async=true;j.src='https://www.googletagmanager.com/gtag/js?id='+GA;document.head.appendChild(j);
+    gtag('js',new Date());gtag('config',GA,{anonymize_ip:true});
+  }
+  function get(){try{return localStorage.getItem(KEY)}catch(e){return null}}
+  function set(v){try{localStorage.setItem(KEY,v)}catch(e){}}
+  function hide(){var b=document.getElementById('cc');if(b)b.remove();}
+  function show(){
+    if(document.getElementById('cc')) return;
+    var b=document.createElement('div');b.id='cc';b.setAttribute('role','dialog');b.setAttribute('aria-label','Cookie consent');
+    b.innerHTML='<p>Can we count your visit? We use Google Analytics cookies only to see how many people use this guide. No ads, nothing sold.</p><div><button type="button" data-v="denied">No thanks</button><button type="button" data-v="granted" class="cc-yes">Accept</button></div>';
+    b.addEventListener('click',function(e){var v=e.target.getAttribute&&e.target.getAttribute('data-v');if(!v)return;set(v);hide();if(v==='granted')load();else gtag('consent','update',{analytics_storage:'denied'});});
+    document.body.appendChild(b);
+  }
+  if(get()==='granted') load();
+  document.addEventListener('DOMContentLoaded',function(){
+    if(!get()) show();
+    var f=document.querySelector('footer');
+    if(f){var l=document.createElement('button');l.type='button';l.className='cc-link';l.textContent='Cookie settings';l.onclick=show;f.appendChild(l);}
+  });
+})();
+</script>
+<style>
+#cc{position:fixed;left:16px;right:16px;bottom:16px;z-index:1000;max-width:520px;margin:0 auto;background:var(--surface,#fff);color:var(--ink,#16181D);
+  border:1px solid var(--line,#DADDE3);border-radius:14px;padding:14px 16px;box-shadow:0 10px 30px rgba(0,0,0,.18);font:14px/1.45 'Instrument Sans',system-ui,sans-serif;
+  display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+#cc p{margin:0;flex:1 1 260px}
+#cc div{display:flex;gap:8px;margin-left:auto}
+#cc button{font:600 14px 'Instrument Sans',system-ui,sans-serif;padding:8px 14px;border-radius:999px;border:1px solid var(--line,#DADDE3);background:transparent;color:inherit;cursor:pointer;min-height:40px}
+#cc .cc-yes{background:var(--accent,#1C5DB0);border-color:var(--accent,#1C5DB0);color:#fff}
+.cc-link{background:none;border:0;padding:0;margin-top:8px;color:inherit;opacity:.75;text-decoration:underline;font:inherit;cursor:pointer;display:block}
+</style>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
