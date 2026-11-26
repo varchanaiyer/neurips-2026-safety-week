@@ -216,6 +216,9 @@ section.block{padding-block:40px 6px;scroll-margin-top:110px}
 .chip.t{font-size:12.5px;padding:4px 10px;border-style:dashed}
 .chip.t[aria-pressed="true"]{border-style:solid;background:var(--accent);border-color:var(--accent);color:var(--surface)}
 .tag.topic{background:transparent;border:1px dashed var(--line)}
+.jobs{display:inline-flex;align-items:center;gap:4px;font:600 12px var(--body);color:var(--ok);background:var(--ok-bg);padding:3px 9px;border-radius:999px;text-decoration:none;margin-top:8px}
+.jobs:hover{text-decoration:underline}
+.jobs-d{display:block;font-size:12px;color:var(--muted);margin-top:4px}
 .tag.clash{background:var(--bad-bg);color:var(--bad);text-transform:none;letter-spacing:0;font-family:var(--body);font-size:12px}
 .ev .time .mine{color:var(--accent);font-weight:500}
 
@@ -375,7 +378,7 @@ footer p{margin:4px 0;max-width:80ch}
   <section class="block" id="orgs">
     <div class="wrap">
       <div class="sechead"><h2>Who's there</h2><span class="count" id="orgCount"></span></div>
-      <p class="intro">Organizations confirmed from the official program, the NeurIPS sponsor list and event pages. The sponsor list is the same for all three sites, so sponsors appear under every city; booth locations are not published. No organization has publicly announced recruiting at NeurIPS 2026 yet.</p>
+      <p class="intro">Organizations confirmed from the official program, the NeurIPS sponsor list and event pages. The sponsor list is the same for all three sites, so sponsors appear under every city; booth locations are not published. Orgs marked <b>Open roles</b> have jobs or applications open on their own careers page (checked 27 Nov 2026). That doesn't mean they're interviewing at the conference: none has announced NeurIPS recruiting.</p>
       <div class="grid" id="orgList"></div>
       <h3 style="font-size:18px;margin-top:28px">Nothing announced yet</h3>
       <p class="intro" style="margin-bottom:0">No NeurIPS 2026 activity found as of 24 Nov for these groups, many of which hosted events in 2025. Lab dinners and socials usually surface in the final one to two weeks.</p>
@@ -638,13 +641,13 @@ const EVENTS = [
 
 const ORGS = [
   {c:"sydney",n:"Gradient Institute",ty:"Australian responsible-AI nonprofit",r:"Hosts the Frontier AI Evaluation and Red Teaming panel.",cf:"Confirmed",u:"https://luma.com/h88d5x3l"},
- {c:"sydney",n:"FAR.AI",ty:"Safety research nonprofit",r:"Co-hosts the Gradient panel; Karl Berzins and Jasper Timm speak. No NeurIPS Alignment Workshop this year.",cf:"Confirmed",u:"https://far.ai/events"},
+ {c:"sydney",n:"FAR.AI",ty:"Safety research nonprofit",r:"Co-hosts the Gradient panel; Karl Berzins and Jasper Timm speak. No NeurIPS Alignment Workshop this year.",cf:"Confirmed",u:"https://far.ai/events",jobs:{u:"https://www.far.ai/careers",d:"Frontier safety leads, red team, deception research"}},
  {c:"sydney",n:"Australian AI Safety Institute",ty:"Government",r:"Paul Salmon speaks at the Gradient × FAR.AI panel.",cf:"Confirmed",u:"https://luma.com/h88d5x3l"},
  {c:"sydney",n:"Sydney AI Safety Space",ty:"Local safety community",r:"Hosts the Networking Night, the Collabs & Co-Founders café and Alignment After Hours on 11 Dec.",cf:"Confirmed",u:"https://luma.com/qw32xqfa"},
  {c:"sydney",n:"PauseAI Australia",ty:"Advocacy",r:"Planned presence outside a Sydney conference location. Day not set.",cf:"Confirmed",u:"https://luma.com/6ridtv1g"},
- {c:"sydney",n:"Google DeepMind",ty:"Frontier lab",r:"Been Kim speaks at Interpretability as a Science; Satinder Singh's alignment keynote.",cf:"Confirmed",u:"https://interpscience.github.io/"},
+ {c:"sydney",n:"Google DeepMind",ty:"Frontier lab",r:"Been Kim speaks at Interpretability as a Science; Satinder Singh's alignment keynote.",cf:"Confirmed",u:"https://interpscience.github.io/",jobs:{u:"https://www.google.com/about/careers/applications/jobs/results?company=DeepMind&q=safety",d:"AI safety and alignment, interpretability, frontier safety"}},
  {c:"sydney",n:"Meta Superintelligence Labs",ty:"Frontier lab",r:"Speakers and panelists at Agents in the Wild.",cf:"Confirmed",u:"https://agentwild-workshop.github.io/neurips2026/"},
- {c:"sydney",n:"LawZero / Mila · Berkeley RDI",ty:"Safety research",r:"Bengio and Song speak at Agents in the Wild and co-organize Dynamic Alignment.",cf:"Confirmed",u:"https://agentwild-workshop.github.io/neurips2026/"},
+ {c:"sydney",n:"LawZero / Mila · Berkeley RDI",ty:"Safety research",r:"Bengio and Song speak at Agents in the Wild and co-organize Dynamic Alignment.",cf:"Confirmed",u:"https://agentwild-workshop.github.io/neurips2026/",jobs:{u:"https://job-boards.greenhouse.io/lawzero",d:"LawZero: evaluations and safety research roles"}},
  {c:"sydney",n:"Schmidt Sciences",ty:"Funder",r:"Sole listed sponsor of Interpretability as a Science.",cf:"Confirmed",u:"https://interpscience.github.io/"},
  {c:"sydney",n:"Leverhulme CFI, Cambridge",ty:"Academic",r:"José Hernández-Orallo's keynote on AI evaluation and red lines.",cf:"Confirmed",u:NC+"loc/sydney/eventlistwithbios/Invited%20Talk"},
  {c:"atlanta",n:"GLG Frontier",ty:"Evals industry",r:"Hosts the Can We Trust the Grader? evals drinks.",cf:"Confirmed",u:"https://luma.com/7bj9cpmq"},
@@ -652,20 +655,20 @@ const ORGS = [
  {c:"atlanta",n:"Anthropic (speaker)",ty:"Frontier lab",r:"A third-party list names an Anthropic-affiliated invited speaker at the AI-Native Academia workshop (12 Dec).",cf:"Unverified",u:"https://agentjesse.ai/lists/neurips-2026-companies"},
  {c:"paris",n:"AI Circle × Alice",ty:"Trust & safety industry",r:"Hosts the Safety by Design dinner and panel.",cf:"Confirmed",u:"https://luma.com/ai-2xao"},
  {c:"paris",n:"ELLIS Units Paris & Oxford",ty:"Academic network",r:"Run the LLM post-training workshop that brings in safety researchers.",cf:"Confirmed",u:"https://ellis.eu/events/neurips-2026-workshop-foundations-of-llm-post-training-in-changing-environments"},
- {c:"paris",n:"CeSIA",ty:"French AI safety center",r:"No NeurIPS side event found yet.",cf:"Not announced",u:""}
+ {c:"paris",n:"CeSIA",ty:"French AI safety center",r:"No NeurIPS side event found yet.",cf:"Not announced",u:"https://www.cesia.org/en/",jobs:{u:"https://www.cesia.org/en/careers/",d:"Technical AI governance researcher (closes 15 Dec) and more"}}
 ];
  ORGS.push(
- {c:"all",n:"Anthropic",ty:"Frontier lab · Diamond sponsor",r:"Top-tier NeurIPS 2026 sponsor. No Anthropic-hosted safety event or booth details announced yet.",cf:"Confirmed",u:"https://neurips.cc/virtual/2026/loc/sydney/sponsor_list"},
- {c:"all",n:"MATS Research",ty:"Safety talent program · Platinum sponsor",r:"Sponsor listing highlights its research fellowships. Its expo talk and workshop are in Sydney on 6 Dec.",cf:"Confirmed",u:"https://neurips.cc/virtual/2026/loc/sydney/sponsor_list"},
- {c:"all",n:"LawZero",ty:"Safe-by-design AI lab · Gold sponsor",r:"Yoshua Bengio's nonprofit. Hiring generally; no NeurIPS recruiting announced.",cf:"Confirmed",u:"https://job-boards.greenhouse.io/lawzero"},
- {c:"all",n:"White Circle",ty:"AI control & safety layer · Gold sponsor",r:"Tools to test and monitor models in production.",cf:"Confirmed",u:"https://neurips.cc/virtual/2026/loc/sydney/sponsor_list"},
- {c:"all",n:"Gray Swan",ty:"AI security & red teaming · Silver Pavilion",r:"Red-teaming and AI security company.",cf:"Confirmed",u:"https://neurips.cc/virtual/2026/loc/sydney/sponsor_list"},
- {c:"all",n:"Alice (formerly ActiveFence)",ty:"Trust & safety · Silver Pavilion and Bronze",r:"Also co-hosts the Paris and Atlanta Safety by Design dinners. As Alice Labs it runs a launch party and a safety daytrip in Sydney.",cf:"Confirmed",u:"https://neurips.cc/virtual/2026/loc/sydney/sponsor_list"},
+ {c:"all",n:"Anthropic",ty:"Frontier lab · Diamond sponsor",r:"Top-tier NeurIPS 2026 sponsor. No Anthropic-hosted safety event or booth details announced yet.",cf:"Confirmed",u:"https://neurips.cc/virtual/2026/loc/sydney/sponsor_list",jobs:{u:"https://www.anthropic.com/jobs",d:"Alignment, interpretability, safeguards, security and the Fellows Program"}},
+ {c:"all",n:"MATS Research",ty:"Safety talent program · Platinum sponsor",r:"Its expo talk and workshop are in Sydney on 6 Dec. Winter 2027 fellow applications are closed; mentor applications for 2027 are open at matsprogram.org/apply.",cf:"Confirmed",u:"https://neurips.cc/virtual/2026/loc/sydney/sponsor_list"},
+ {c:"all",n:"LawZero",ty:"Safe-by-design AI lab · Gold sponsor",r:"Yoshua Bengio's nonprofit building safe-by-design AI.",cf:"Confirmed",u:"https://job-boards.greenhouse.io/lawzero",jobs:{u:"https://job-boards.greenhouse.io/lawzero",d:"Incl. Director of Evaluations and AI safety research scientists"}},
+ {c:"all",n:"White Circle",ty:"AI control & safety layer · Gold sponsor",r:"Tools to test and monitor models in production.",cf:"Confirmed",u:"https://neurips.cc/virtual/2026/loc/sydney/sponsor_list",jobs:{u:"https://whitecircle.com/careers",d:"Incl. research engineer (evals) and agentic systems research"}},
+ {c:"all",n:"Gray Swan",ty:"AI security & red teaming · Silver Pavilion",r:"Red-teaming and AI security company.",cf:"Confirmed",u:"https://neurips.cc/virtual/2026/loc/sydney/sponsor_list",jobs:{u:"https://www.grayswan.ai/careers",d:"ML and software engineers, AI security"}},
+ {c:"all",n:"Alice (formerly ActiveFence)",ty:"Trust & safety · Silver Pavilion and Bronze",r:"Also co-hosts the Paris and Atlanta Safety by Design dinners. As Alice Labs it runs a launch party and a safety daytrip in Sydney.",cf:"Confirmed",u:"https://neurips.cc/virtual/2026/loc/sydney/sponsor_list",jobs:{u:"https://alice.io/careers",d:"Incl. AI safety & red teaming lead, GenAI security researcher"}},
  {c:"all",n:"Mila · ELLIS",ty:"Research institutes · Gold and Bronze sponsors",r:"Mila hosts Bengio's group; ELLIS units run the Paris post-training workshop.",cf:"Confirmed",u:"https://neurips.cc/virtual/2026/loc/sydney/sponsor_list"},
- {c:"sydney",n:"Scale AI",ty:"Evals & red teaming · Diamond sponsor",r:"Organizes Agents in the Wild (11 Dec) and gives an expo talk on environments and reward-hacking mitigation (6 Dec).",cf:"Confirmed",u:"https://agentwild-workshop.github.io/neurips2026/"},
- {c:"sydney",n:"Alterra Labs",ty:"AI safety for healthcare and life sciences",r:"Hosts an approval-only brunch on 8 Dec and a lunch on 9 Dec.",cf:"Confirmed",u:"https://luma.com/fx8xql0n"},
+ {c:"sydney",n:"Scale AI",ty:"Evals & red teaming · Diamond sponsor",r:"Organizes Agents in the Wild (11 Dec) and gives an expo talk on environments and reward-hacking mitigation (6 Dec).",cf:"Confirmed",u:"https://agentwild-workshop.github.io/neurips2026/",jobs:{u:"https://job-boards.greenhouse.io/scaleai",d:"AI safety and alignment research, evaluations, AI Safety Residency"}},
+ {c:"sydney",n:"Alterra Labs",ty:"AI safety for healthcare and life sciences",r:"Hosts an approval-only brunch on 8 Dec and a lunch on 9 Dec.",cf:"Confirmed",u:"https://luma.com/fx8xql0n",jobs:{u:"https://alterralabs.ai/careers",d:"ML research, post-training, clinical AI fellowships"}},
  {c:"atlanta",n:"AI Circle × Alice",ty:"Trust & safety industry",r:"Hosts Trust at Scale, a private dinner and panel on red teaming, guardrails, evals and agent security.",cf:"Confirmed",u:"https://luma.com/ai-9yem"},
- {c:"paris",n:"Lakera AI · Sondera",ty:"AI security companies",r:"Give demos at the Foundations of Language Model Security workshop on 13 Dec.",cf:"Confirmed",u:"https://flmsec.github.io/"},
+ {c:"paris",n:"Lakera AI · Sondera",ty:"AI security companies",r:"Give demos at the Foundations of Language Model Security workshop on 13 Dec.",cf:"Confirmed",u:"https://flmsec.github.io/",jobs:{u:"https://careers.checkpoint.com/jobs?city=Z%C3%BCrich&city=Zurich",d:"Lakera (now Check Point): AI security and red-team roles in Zürich"}},
  {c:"paris",n:"Microsoft · Palo Alto Networks",ty:"Industry security research",r:"Co-organize the Foundations of Language Model Security workshop on 13 Dec.",cf:"Confirmed",u:"https://flmsec.github.io/"}
 );
 const MISSING = ["UK AI Security Institute","US CAISI","METR","Apollo Research","Redwood Research","Center for AI Safety","ARC","Goodfire","Transluce","EleutherAI","Epoch AI","CHAI","Constellation","Cooperative AI Foundation","Coefficient Giving","Longview","SFF"];
@@ -824,6 +827,7 @@ function renderOrgs(){
     <div class="otype">${esc(o.ty)}</div>
     <p>${esc(o.r)}</p>
     <div class="tags"><span class="tag ${cls[o.cf]}">${esc(o.cf)}</span>${o.c === "all" ? `<span class="tag">Sponsor · all three sites</span>` : ""}</div>
+    ${o.jobs ? `<a class="jobs" href="${esc(o.jobs.u)}" target="_blank" rel="noopener">Open roles ↗</a>${o.jobs.d ? `<span class="jobs-d">${esc(o.jobs.d)}</span>` : ""}` : ""}
   </div>`).join("");
   $("#missing").innerHTML = MISSING.map(m => `<span>${esc(m)}</span>`).join("");
 }
